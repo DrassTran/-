@@ -1,16 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./JS/jquery.min.js">
-     <link rel="stylesheet" href="./bootstrap-3.4.1-dist/css/bootstrap.min.css">
-     <link rel="stylesheet" href="./JS/axios.min.js">
-     <link rel="stylesheet" href="./CSS/index.css">
+    <script src="./JS/jquery.min.js"></script>
+    <script src="./JS/axios.min.js"></script>
+    <link rel="stylesheet" href="./bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    <script src="./bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./iconfont/图书和排行榜服务器字体/font_qizqwal6edr/iconfont.css">
+    <link rel="stylesheet" href="./CSS/swiper.min.css">
+    <link rel="stylesheet" href="./CSS/index.css">
 </head>
+
 <body>
-   
+    <!-- 设置主页的头部 🥴-->
+    <header>
+        <nav class="navbar navbar-inverse  header-background">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand font-color" href="#">三味书屋</a>
+                </div>
+
+                <!-- 搜索框的内容🥁🥁🥁-->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <form class="navbar-form navbar-left search-move">
+                        <!-- 创建头部导航栏的搜索框 🗡️-->
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="请输入书名" style="width: 300px;">
+                        </div>
+                        <!-- 创建搜索框里的提交按钮🥰 -->
+                        <button type="submit" class="btn btn-default headerbtn"><span
+                                class="glyphicon glyphicon-search"></span></button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#" class="font-color"><span class="iconfont icon-tushu"
+                                    id="iconfont-tushu"></span>书籍管理</a></li>
+                        <li><a href="#" class="font-color">
+                                <span class="iconfont icon-paihangbang--" id="iconfont-paihang"></span> 排行榜</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </header>
+    <!-- 轮播图效果💟 -->
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="http://img3m5.ddimg.cn/30/21/23828835-1_w_17.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+                <img src="https://img3m3.ddimg.cn/23/25/29311943-1_w_24.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+                <img src="http://img3m2.ddimg.cn/30/4/23941002-1_w_16.jpg" alt="">
+            </div>
+            <div class="swiper-slide">
+                <img src="http://img3m5.ddimg.cn/30/21/23828835-1_w_17.jpg" alt="">
+            </div>
+            <div class="swiper-slide"><img src="http://img3m6.ddimg.cn/31/22/23828836-1_w_16.jpg" alt=""></div>
+        </div>
+        <!-- Add Pagination💟 -->
+        <div class="swiper-pagination"></div>
+        <!-- Add Arrows -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+    <!-- 排行榜效果🔥 -->
+    <p id="content-p"><span class="iconfont icon-paihangbang--" id="p-font"></span>排行榜</p>
+    <div class="paihang-content">
+    <div>
+        <img src="http://img3m5.ddimg.cn/30/21/23828835-1_w_17.jpg" alt="">
+    </div>
+    <div>
+        <img src="http://img3m5.ddimg.cn/30/21/23828835-1_w_17.jpg" alt="">
+    </div>
+    <div>
+        <img src="http://img3m5.ddimg.cn/30/21/23828835-1_w_17.jpg" alt="">
+    </div>
+    <div>
+        <img src="http://img3m5.ddimg.cn/30/21/23828835-1_w_17.jpg" alt="">
+    </div>
+    <div>
+        <img src="http://img3m5.ddimg.cn/30/21/23828835-1_w_17.jpg" alt="">
+    </div>
+    </div>
+    <!-- 网页底部效果🦶 -->
+    <footer>
+        <p>© 2022 三味书屋 隐私政策 京ICP证080268号 京ICP备10005211号</p>
+    </footer>
+
 </body>
+<script src="./JS/swiper-3.4.2.min.js"></script>
+<script src="./bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+<script>
+    // 给轮播图添加效果💟
+    var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        centeredSlides: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        loop: true,
+        autoplay: true,
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script>
 </html>
