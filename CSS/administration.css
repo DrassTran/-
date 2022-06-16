@@ -1,0 +1,50 @@
+/* 清空默认样式 💖💖💖*/
+* {
+    margin : 0;
+    padding: 0;
+}
+
+/* 导航栏的背景颜色 💕💕💕*/
+header .header-background {
+    background-color: #333333;
+}
+
+/* 三味书屋的字体颜色 💕💕💕*/
+header .font-color {
+    color      : #500a16;
+    font-weight: bold;
+    font-size  : 24px;
+}
+
+/* 移动导航栏里的搜索框至导航栏中间位置 💕💕💕*/
+header .search-move {
+    margin-left: 430px;
+}
+
+/* 变更其bootstrap里导航栏的hover效果 💕💕💕*/
+header .font-color:hover {
+    background-color: #EEEEEE;
+}
+
+/* 设置图书服务器字体大小 💕💕💕*/
+header #iconfont-tushu {
+    font-size: 24px;
+}
+
+/* 设置排行榜服务器字体大小 💕💕💕*/
+header #iconfont-paihang {
+    font-size: 24px;
+}
+/* 设置底部效果🦶 */
+footer {
+    width           : 100%;
+    height          : 9.375rem;
+    background-color: #333333;
+    text-align      : center;
+}
+
+footer p {
+    position: relative;
+    top     : 45%;
+    color   : #e0c8d1;
+}

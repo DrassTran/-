@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./JS/jquery.min.js"></script>
+    <script src="./JS/axios.min.js"></script>
+    <link rel="stylesheet" href="./bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    <script src="./bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./iconfont/图书和排行榜服务器字体/font_qizqwal6edr/iconfont.css">
+    <link rel="stylesheet" href="./CSS/book.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-inverse  header-background">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand font-color" href="#">三味书屋</a>
+                </div>
+
+                <!-- 搜索框的内容🥁🥁🥁-->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <form class="navbar-form navbar-left search-move">
+                        <!-- 创建头部导航栏的搜索框 🗡️-->
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="请输入书名" style="width: 300px;">
+                        </div>
+                        <!-- 创建搜索框里的提交按钮🥰 -->
+                        <button type="submit" class="btn btn-default headerbtn"><span
+                                class="glyphicon glyphicon-search"></span></button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#" class="font-color"><span class="iconfont icon-tushu"
+                                    id="iconfont-tushu"></span>书籍管理</a></li>
+                        <li><a href="#" class="font-color">
+                                <span class="iconfont icon-paihangbang--" id="iconfont-paihang"></span> 排行榜</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </header>
+    <!-- 开发书籍介绍 📖-->
+    <div class="content-main" style="width:100% ;height: 556px;">
+        <div class="content-img" style="width:350px ;">
+            <img src="http://img3m6.ddimg.cn/31/22/23828836-1_w_16.jpg" alt="">
+        </div>
+        <div class="content-font" style="width: 400px;">
+            <div>
+                <p class="content-font-p"><span class="content-em">书名：</span><span>《红楼梦》</span></p>
+            </div>
+            <div>
+                <p><span  class="content-em">作者：</span><span>曹雪芹</span></p>
+            </div>
+            <div>
+                <p><span  class="content-em">简介：</span><span>《红楼梦》讲述的是发生在一个虚构朝代的封建大家庭中的人事物，其中以贾宝玉、林黛玉、薛宝钗三个人之间的感情纠葛为主线通过对一些日常事件的描述体现了在贾府的大观园中以金陵十二钗为主体的众女子的爱恨情愁。而在这同时又从贾府由富贵堂皇走向没落衰败的次线反映了一个大家族的没落历程和这个看似华丽的家族的丑陋的内在。</span>
+                </p>
+            </div>
+            <div>
+                <p><span  class="content-em">评分：</span><span>星星</span></p>
+            </div>
+        </div>
+
+    </div>
+    <!-- 网页底部效果🦶 -->
+    <footer>
+        <p>© 2022 三味书屋 隐私政策 京ICP证080268号 京ICP备10005211号</p>
+    </footer>
+
+</body>
+<script src="./bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+
+</html>
