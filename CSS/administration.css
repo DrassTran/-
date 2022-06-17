@@ -60,8 +60,26 @@ header #iconfont-paihang {
     position: relative;
     max-width:200px;
 }
-
-
+/* 点击新增按钮出来的框 */
+#model{
+    display: none;
+    text-overflow: inherit;
+    white-space: normal;
+}
+#pingfen{
+    position: relative;
+    left: 0px;
+    top: 0px;
+}
+.star{
+    position: relative;
+    left: 30px;
+}
+/* #Allbtn{
+    position: relative;
+    left: 370px !important;
+    top: 200px !important;
+} */
 /* 设置底部效果🦶 */
 footer {
     width           : 100%;

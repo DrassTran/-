@@ -37,7 +37,7 @@
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="请输入书名" style="width: 300px;">
                         </div>
-                        <!-- 创建搜索框里的提交按钮🥰 -->
+                        <!-- 创建搜索框里的提交按钮🥰🥰🥰-->
                         <button type="submit" class="btn btn-default headerbtn"><span
                                 class="glyphicon glyphicon-search"></span></button>
                     </form>
@@ -60,50 +60,75 @@
     <footer>
         <p>© 2022 三味书屋 隐私政策 京ICP证080268号 京ICP备10005211号</p>
     </footer>
+    <!-- 点击新增出来模态框 -->
+    <div id="model">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">书名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required lay-verify="required" placeholder="请输入书名"
+                        autocomplete="off" class="layui-input" id="titleinput">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">封面图</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required lay-verify="required" placeholder="请输入封面图对应的URL"
+                        autocomplete="off" class="layui-input" id="imgurl">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">作者</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required lay-verify="required" placeholder="请输入作者"
+                        autocomplete="off" class="layui-input" id="authorinput">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" id="pingfen">评分</label>
+                <div>
+                    <div id="test8" class="star"></div>
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">简介</label>
+                <div class="layui-input-block">
+                    <textarea name="desc" placeholder="请输入内容" class="layui-textarea" id="descinput"></textarea>
+                </div>
+            </div>
+            <!--             <div class="layui-form-item">
+                <div class="layui-input-block" id="Allbtn">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo" id="addbtn">立即提交</button>
+                    <button  class="layui-btn layui-btn-primary" id="cancel">取消</button>
+                </div>
+            </div> -->
+        </form>
+    </div>
 </body>
 
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
-      <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
       <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
       <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
     <!-- 新增 👻👻👻-->
-    <button class="layui-btn layui-btn-sm" lay-event="isAll">新增</button>
+    <button class="layui-btn layui-btn-sm" lay-event="add">新增</button>
     </div>
   </script>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
   </script>
 <script src="./layui-v2.6.11/layui/layui.js"></script>
 <script src="./JS/axios.min.js"></script>
 <script>
-   async function fun() {
+    async function fun() {
         try {
             let { data: gen } = await axios.get("http://localhost:3005/books?_page=1&_limit=10&_sort=id&_order=asc");
             console.log(gen.data);
             console.log();
             layui.use('table', function () {
                 var table = layui.table;
-                //头工具栏事件
-                table.on('toolbar(demo)', function (obj) {
-                    var checkStatus = table.checkStatus(obj.config.id);
-                    switch (obj.event) {
-                        case 'getCheckData':
-                            var data = checkStatus.data;
-                            layer.alert(JSON.stringify(data));
-                            break;
-                        case 'getCheckLength':
-                            var data = checkStatus.data;
-                            layer.msg('选中了：' + data.length + ' 个');
-                            break;
-                        case 'isAll':
-                            layer.msg(checkStatus.isAll ? '全选' : '未全选');
-                            break;
-
-                    };
-                });
-
                 //行工具事件
                 table.on('tool(demo)', function (obj) {
                     var data = obj.data;
@@ -111,25 +136,64 @@
                     if (obj.event === 'del') {
                         layer.confirm('真的删除行么', function (index) {
                             obj.del();
-                            layer.close(index);                        
-                            let { data: del } = axios.delete("http://localhost:3005/books/"+gen.data[index-1].id).then(data => {
+                            layer.close(index);
+                            console.log(index);
+                            let { data: del } = axios.delete("http://localhost:3005/books/" + gen.data[index - 1].id).then(data => {
                                 console.log(data);
                             })
                         });
                     } else if (obj.event === 'edit') {
-                        layer.prompt({
-                            formType: 2
-                            , value: data.email
-                        }, function (value, index) {
-                            obj.update({
-                                email: value
-                            });
-                            layer.close(index);
+                        layer.open({
+                            type: 1,
+                            skin: 'layui-layer-rim', //加上边框
+                            area: ['750px', '700px'], //宽高
+                            content: $('#model'),
+                            btn: ["确认", "取消"],
+                            //给新增按钮里的立即提交按钮与AJAX相连并渲染到页面🌈🌈🌈
+                            yes: function (index, layero) {
+                                console.log("执行修改")
+                                //编辑功能
+                                axios({
+                                    method: "put",
+                                    url: `http://localhost:3005/books`,
+                                    params: {
+                                        name: $("#titleinput").val(),
+                                        author: $("#authorinput").val(),
+                                        desc: $("#descinput").val(),
+                                        coverImg: $("#imgurl").val(),
+                                        id: gen.data[index - 1].id
+                                    },
+                                }).then(data => {
+                                    console.log(data.data);
+                                    // 将请求回来的值渲染页面
+                                    render()
+                                    //编辑功能里选择星星个数
+                                    /* layui.use(['rate'], function () {
+                                        var rate = layui.rate;
+                                        let obj = {};
+                                        var ins1 = rate.render({
+                                            elem: '#test8'
+                                            , length: 10,
+                                            value: obj.rate
+                                            , //初始值
+                                            half: true,
+                                            readonely: true,
+                                        });
+                                    }) */
+                                })
+
+                                // window.location.href = "./administration.html"
+                            }
                         });
+                        layer.title("编辑")
+                    }
+                    //给查看设置页面跳转🐟🐟🐟
+                    else if (obj.event === 'detail') {
+                        window.location.href = './books.html';
                     }
                 });
                 //展示已知数据
-              function render() {
+                function render() {
                     table.render({
                         elem: '#demo',
                         toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
@@ -144,7 +208,26 @@
                             }
                             , { field: 'author', title: '作者', width: 180, edit: 'text' }
                             , { field: 'desc', title: '简介', width: 320, edit: 'text' }
-                            , { field: 'rate', title: '评分', width: 400, sort: true }
+                            , {
+                                field: 'rate', title: '评分', width: 400, sort: true, templet: function (d) {
+                                    let i = d.LAY_INDEX
+                                    layui.use('rate', function () {
+                                        // console.log(d.rate);
+                                        var rate = layui.rate;
+                                        //渲染
+                                        let obj = {}
+                                        var ins1 = rate.render({
+                                            elem: '.bookXing' + i  //绑定元素
+                                            , length: 10
+                                            , half: true
+                                            , value: d.rate
+                                            , readonly: true
+                                        });
+                                    });
+                                    i++
+                                    return `<div class = "bookXing${i}"></div>`
+                                }
+                            }
                             , { title: '操作', toolbar: '#barDemo', width: 200 },
                         ]]
                         , data: gen.data
@@ -153,6 +236,62 @@
                         , page: true //是否显示分页
                         //,limits: [5, 7, 10]
                         //,limit: 5 //每页默认显示的数量
+                    });
+                    //头工具栏事件除新增功能
+                    table.on('toolbar(demo)', function (obj) {
+                        var checkStatus = table.checkStatus(obj.config.id);
+                        switch (obj.event) {
+                            case 'getCheckLength':
+                                var data = checkStatus.data;
+                                layer.msg('选中了：' + data.length + ' 个');
+                                break;
+                            case 'isAll':
+                                layer.msg(checkStatus.isAll ? '全选' : '未全选');
+                                break;
+                        };
+                        // 给页面添加新增按钮😝😝😝
+                        if (obj.event === "add") {
+                            //页面层
+                            layer.open({
+                                type: 1,
+                                skin: 'layui-layer-rim', //加上边框
+                                area: ['750px', '700px'], //宽高
+                                content: $('#model'),
+                                btn: ["确认", "取消"],
+                                //给新增按钮里的立即提交按钮与AJAX相连并渲染到页面🌈🌈🌈
+                                yes: function (index, layero) {
+                                    //按钮【确认按钮】的回调⛲⛲⛲
+                                    axios({
+                                        method: "post",
+                                        url: `http://localhost:3005/books?`,
+                                        data: {
+                                            name: $("#titleinput").val(),
+                                            author: $("#authorinput").val(),
+                                            desc: $("#descinput").val(),
+                                            coverImg: $("#imgurl").val()
+                                        }
+                                    }).then(data => {
+                                        console.log(data.data);
+                                        //新增功能里选择星星个数
+                                        layui.use(['rate'], function () {
+                                            var rate = layui.rate;
+                                            let obj = {};
+                                            var ins1 = rate.render({
+                                                elem: '#test8'
+                                                , length: 10,
+                                                value: obj.rate
+                                                , //初始值
+                                                half: true,
+                                                readonely: true,
+                                            });
+                                        })
+                                    })
+
+                                    window.location.href = "./administration.html"
+                                }
+                            });
+                            layer.title("新增")
+                        }
                     });
                 }
                 render();
@@ -163,6 +302,29 @@
     }
     fun()
 
+    //星星
+    layui.use(['rate'], function () {
+        var rate = layui.rate;
+        let obj = {};
+        var ins1 = rate.render({
+            elem: '#test8'
+            , length: 10
+            , //初始值
+            half: true,
+            readonely: true,
+        });
+    })
+    /* 毁灭吧该死的页面。
+       💀💀💀💀💀💀     
+       💀          💀
+       💀          💀           
+       💀💀💀💀💀💀             
+       💀          💀   
+       💀          💀           
+       💀          💀                     
+       💀💀💀💀💀💀            
+    
+    */
 </script>
 
 
