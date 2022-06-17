@@ -50,7 +50,10 @@ header #iconfont-paihang {
 
 /* 给表格增加高度 */
  td .layui-table-cell{
-    height: auto
+    height: auto;
+    text-overflow: inherit;
+    white-space: normal;
+
 }
 
 
