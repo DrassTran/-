@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,8 +11,10 @@
     <link rel="stylesheet" href="./bootstrap-3.4.1-dist/css/bootstrap.min.css">
     <script src="./bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./iconfont/图书和排行榜服务器字体/font_qizqwal6edr/iconfont.css">
+    <link rel="stylesheet" href="./layui-v2.6.11/layui/css/layui.css">
     <link rel="stylesheet" href="./CSS/administration.css">
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-inverse  header-background">
@@ -27,7 +30,7 @@
                     </button>
                     <a class="navbar-brand font-color" href="#">三味书屋</a>
                 </div>
-
+                
                 <!-- 搜索框的内容🥁🥁🥁-->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <form class="navbar-form navbar-left search-move">
@@ -49,9 +52,194 @@
             </div><!-- /.container-fluid -->
         </nav>
     </header>
-       <!-- 网页底部效果🦶 -->
-       <footer>
+    <!-- 给整个书籍管理添加一个大盒子 -->
+    <div class="admin-content">
+        <!-- 书籍管理的表格👻👻👻 -->
+        <table class="layui-hide" id="demo" lay-filter="demo"></table>
+    </div>
+    <!-- 网页底部效果🦶 -->
+    <footer>
         <p>© 2022 三味书屋 隐私政策 京ICP证080268号 京ICP备10005211号</p>
     </footer>
 </body>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+      <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+      <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+      <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+    <!-- 新增 👻👻👻-->
+    <button class="layui-btn layui-btn-sm" lay-event="isAll">新增</button>
+      
+    </div>
+  </script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+  </script>
+<script src="./layui-v2.6.11/layui/layui.js"></script>
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+        //展示已知数据
+        table.render({
+            elem: '#demo',
+            method: "http://localhost:3005/books?_sort=id&_order=desc"
+            , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+            , defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+                title: '提示'
+                , layEvent: 'LAYTABLE_TIPS'
+                , icon: 'layui-icon-tips'
+            }]
+            , title: '书籍管理', cols: [[ //标题栏
+                { type: 'checkbox' }
+                , { field: 'name', title: '书名', width: 140, unresize: true, sort: true },
+                { field: 'coverImg', title: '封面图', width: 220, templet:function(url){
+                        return `<img src=${url.coverImg} >`
+                } }
+                , { field: 'autor', title: '作者', width: 80, edit: 'text' }
+                , { field: 'desc', title: '简介', width: 320, edit: 'text' }
+                , { field: 'experience', title: '评分', width: 400, sort: true }
+                , { title: '操作', toolbar: '#barDemo', width: 300 },
+            ]]
+         , data: [{
+                "name": "《红楼梦》"
+                , "coverImg": "http://img3m6.ddimg.cn/31/22/23828836-1_w_16.jpg"
+                , "autor": "曹雪芹"
+                , "desc": "《红楼梦》讲述的是发生在一个虚构朝代的封建大家庭中的人事物，其中以贾宝玉、林黛玉、薛宝钗三个人之间的感情纠葛为主线通过对一些日常事件的描述体现了在贾府的大观园中以金陵十二钗为主体的众女子的爱恨情愁。而在这同时又从贾府由富贵堂皇走向没落衰败的次线反映了一个大家族的没落历程和这个看似华丽的家族的丑陋的内在。"
+                , "experience": "116"
+            }, {
+                "id": "10002"
+                , "username": "李白"
+                , "email": "test@email.com"
+                , "sex": "男"
+                , "city": "浙江杭州"
+                , "sign": "人生恰似一场修行"
+                , "experience": "12"
+                , "ip": "192.168.0.8"
+                , "logins": "106"
+                , "joinTime": "2016-10-14"
+                , "LAY_CHECKED": true
+            }, {
+                "id": "10003"
+                , "username": "王勃"
+                , "email": "test@email.com"
+                , "sex": "男"
+                , "city": "浙江杭州"
+                , "sign": "人生恰似一场修行"
+                , "experience": "65"
+                , "ip": "192.168.0.8"
+                , "logins": "106"
+                , "joinTime": "2016-10-14"
+            }, {
+                "id": "10004"
+                , "username": "贤心"
+                , "email": "test@email.com"
+                , "sex": "男"
+                , "city": "浙江杭州"
+                , "sign": "人生恰似一场修行"
+                , "experience": "666"
+                , "ip": "192.168.0.8"
+                , "logins": "106"
+                , "joinTime": "2016-10-14"
+            }, {
+                "id": "10005"
+                , "username": "贤心"
+                , "email": "test@email.com"
+                , "sex": "男"
+                , "city": "浙江杭州"
+                , "sign": "人生恰似一场修行"
+                , "experience": "86"
+                , "ip": "192.168.0.8"
+                , "logins": "106"
+                , "joinTime": "2016-10-14"
+            }, {
+                "id": "10006"
+                , "username": "贤心"
+                , "email": "test@email.com"
+                , "sex": "男"
+                , "city": "浙江杭州"
+                , "sign": "人生恰似一场修行"
+                , "experience": "12"
+                , "ip": "192.168.0.8"
+                , "logins": "106"
+                , "joinTime": "2016-10-14"
+            }, {
+                "id": "10007"
+                , "username": "贤心"
+                , "email": "test@email.com"
+                , "sex": "男"
+                , "city": "浙江杭州"
+                , "sign": "人生恰似一场修行"
+                , "experience": "16"
+                , "ip": "192.168.0.8"
+                , "logins": "106"
+                , "joinTime": "2016-10-14"
+            }, {
+                "id": "10008"
+                , "username": "贤心"
+                , "email": "test@email.com"
+                , "sex": "男"
+                , "city": "浙江杭州"
+                , "sign": "人生恰似一场修行"
+                , "experience": "106"
+                , "ip": "192.168.0.8"
+                , "logins": "106"
+                , "joinTime": "2016-10-14"
+            }]
+            //,skin: 'line' //表格风格
+            ,even: true
+            , page: true //是否显示分页
+            //,limits: [5, 7, 10]
+            //,limit: 5 //每页默认显示的数量
+        });
+
+        //头工具栏事件
+        table.on('toolbar(test)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch (obj.event) {
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                    break;
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：' + data.length + ' 个');
+                    break;
+                case 'isAll':
+                    layer.msg(checkStatus.isAll ? '全选' : '未全选');
+                    break;
+
+                //自定义头工具栏右侧图标 - 提示
+                case 'LAYTABLE_TIPS':
+                    layer.alert('这是工具栏右侧自定义的一个图标按钮');
+                    break;
+            };
+        });
+
+        //行工具事件
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            //console.log(obj)
+            if (obj.event === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if (obj.event === 'edit') {
+                layer.prompt({
+                    formType: 2
+                    , value: data.email
+                }, function (value, index) {
+                    obj.update({
+                        email: value
+                    });
+                    layer.close(index);
+                });
+            }
+        });
+    });
+</script>
+
+
 </html>

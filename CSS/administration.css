@@ -35,6 +35,21 @@ header #iconfont-tushu {
 header #iconfont-paihang {
     font-size: 24px;
 }
+/* 给大盒子添加样式 */
+.admin-content{
+    width: 100%;
+    height: 816.6px;
+}
+/* 给新增按钮增加样式👻👻👻 */
+.btn1{
+    font-size: 12px;
+    width: 106px;
+    height: 30px; ;
+    margin-top: -10px;
+}
+
+/*  */
+
 /* 设置底部效果🦶 */
 footer {
     width           : 100%;
