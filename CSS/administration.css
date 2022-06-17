@@ -53,7 +53,12 @@ header #iconfont-paihang {
     height: auto;
     text-overflow: inherit;
     white-space: normal;
-
+}
+ .layui-table-cell img{
+    /* width: 200px; */
+    height: 200px;
+    position: relative;
+    max-width:200px;
 }
 
 
