@@ -124,7 +124,7 @@
 <script>
     async function fun() {
         try {
-            let { data: gen } = await axios.get("http://localhost:3005/books?_page=1&_limit=10&_sort=id&_order=asc");
+            let { data: gen } = await axios.get("http://localhost:3005/books?_sort=rate&_order=desc&_start=0");
             console.log(gen.data);
             layui.use('table', function () {
                 var table = layui.table;
@@ -137,7 +137,7 @@
                             obj.del();
                             layer.close(index);
                             console.log(index);
-                            let { data: del } = axios.delete("http://localhost:3005/books/" + gen.data[index - 1].id).then(data => {
+                            let { data: del } = axios.delete("http://localhost:3005/books/" + data.id).then(data => {
                                 console.log(data);
                             })
                         });
@@ -148,14 +148,14 @@
                             area: ['750px', '700px'], //宽高
                             content: $('#model'),
                             btn: ["确认", "取消"],
-                            //给新增按钮里的立即提交按钮与AJAX相连并渲染到页面🌈🌈🌈
+                            //给编辑按钮里的确定按钮与AJAX相连并渲染到页面🌈🌈🌈
                             yes: function (index, layero) {
                                 /*  console.log('qweqwe', gen.data[index - 1].id, $("#titleinput").val(), $("#authorinput").val(), $("#descinput").val(), $("#imgurl").val()) */
 
                                 //编辑功能
                                 axios({
                                     method: "put",
-                                    url: `http://localhost:3005/books/${gen.data[index - 1].id}`,
+                                    url: "http://localhost:3005/books/" + data.id,
                                     data: {
                                         name: $("#titleinput").val(),
                                         author: $("#authorinput").val(),
@@ -242,8 +242,8 @@
                         //,skin: 'line' //表格风格
                         , even: true
                         , page: true //是否显示分页
-                        ,limits: [5, 10, 15,20]
-                        ,limit: 5 //每页默认显示的数量
+                        , limits: [5, 10, 15, 20]
+                        , limit: 5 //每页默认显示的数量
                     });
                     //头工具栏事件除新增功能
                     table.on('toolbar(demo)', function (obj) {
