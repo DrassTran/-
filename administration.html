@@ -27,7 +27,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand font-color" href="#">三味书屋</a>
+                    <a class="navbar-brand font-color" href="./index main.html">三味书屋</a>
                 </div>
 
                 <!-- 搜索框的内容🥁🥁🥁-->
@@ -151,20 +151,29 @@
                             btn: ["确认", "取消"],
                             //给新增按钮里的立即提交按钮与AJAX相连并渲染到页面🌈🌈🌈
                             yes: function (index, layero) {
-                                console.log("执行修改")
+                               /*  console.log('qweqwe', gen.data[index - 1].id, $("#titleinput").val(), $("#authorinput").val(), $("#descinput").val(), $("#imgurl").val()) */
+
                                 //编辑功能
                                 axios({
                                     method: "put",
-                                    url: `http://localhost:3005/books`,
-                                    params: {
+                                    url: `http://localhost:3005/books/${gen.data[index - 1].id}`,
+                                    data: {
                                         name: $("#titleinput").val(),
                                         author: $("#authorinput").val(),
                                         desc: $("#descinput").val(),
-                                        coverImg: $("#imgurl").val(),
-                                        id: gen.data[index - 1].id
+                                        coverImg: $("#imgurl").val()
                                     },
                                 }).then(data => {
-                                    console.log(data.data);
+                                    console.log('11111111111', data.data);
+                                    axios({
+                                        method: "GET",
+                                        url: `http://localhost:3005/books`,
+                                        params: {
+                                            id: gen.data[index - 1].id
+                                        },
+                                    }).then(data => {
+                                        console.log('2222222', data.data);
+                                    })
                                     // 将请求回来的值渲染页面
                                     render()
                                     //编辑功能里选择星星个数
@@ -182,7 +191,7 @@
                                     }) */
                                 })
 
-                                // window.location.href = "./administration.html"
+                                window.location.href = "./administration.html"
                             }
                         });
                         layer.title("编辑")

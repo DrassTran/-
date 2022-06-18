@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="./JS/jquery.min.js"></script>
-    <script src="./JS/axios.min.js"></script>
     <link rel="stylesheet" href="./bootstrap-3.4.1-dist/css/bootstrap.min.css">
     <script src="./bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./iconfont/图书和排行榜服务器字体/font_qizqwal6edr/iconfont.css">
     <link rel="stylesheet" href="./CSS/swiper.min.css">
     <link rel="stylesheet" href="./CSS/index.css">
+
 </head>
 
 <body>
@@ -44,10 +44,12 @@
                                 class="glyphicon glyphicon-search"></span></button>
                     </form>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#" class="font-color"><span class="iconfont icon-tushu"
-                                    id="iconfont-tushu"></span>书籍管理</a></li>
+                        <li><a href="./administration.html" class="font-color">
+                            <span class="iconfont icon-tushu"
+                                    id="iconfont-tushu">
+                                </span>书籍管理</a></li>
                         <li><a href="#" class="font-color">
-                                <span class="iconfont icon-paihangbang--" id="iconfont-paihang"></span> 排行榜</a></li>
+                                <span class="iconfont icon-paihangbang--" id="iconfont-paihang"></span>排行榜</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -55,20 +57,43 @@
     </header>
     <!-- 轮播图效果💟 -->
     <div class="swiper-container">
-        <div class="swiper-wrapper">
+        <div class="swiper-wrapper" id="Rotation">
             <div class="swiper-slide">
-                <img src="http://img3m5.ddimg.cn/30/21/23828835-1_w_17.jpg" alt="">
+                <img src="" alt="" class="img1">
             </div>
             <div class="swiper-slide">
-                <img src="https://img3m3.ddimg.cn/23/25/29311943-1_w_24.jpg" alt="">
+                <img src="" alt="" class="img1">
             </div>
             <div class="swiper-slide">
-                <img src="http://img3m2.ddimg.cn/30/4/23941002-1_w_16.jpg" alt="">
+                <img src="" alt="" class="img1">
             </div>
             <div class="swiper-slide">
-                <img src="http://img3m5.ddimg.cn/30/21/23828835-1_w_17.jpg" alt="">
+                <img src="" alt="" class="img1">
             </div>
-            <div class="swiper-slide"><img src="http://img3m6.ddimg.cn/31/22/23828836-1_w_16.jpg" alt=""></div>
+            <div class="swiper-slide">
+                <img src="" alt="" id="img1">
+            </div>
+            <div class="swiper-slide">
+                <img src="" alt="" class="img1">
+            </div>
+            <div class="swiper-slide">
+                <img src="" alt="" class="img1">
+            </div>
+            <div class="swiper-slide">
+                <img src="" alt="" class="img1">
+            </div>
+            <div class="swiper-slide">
+                <img src="" alt="" class="img1">
+            </div>
+            <div class="swiper-slide">
+                <img src="" alt="" class="img1">
+            </div>
+            <div class="swiper-slide">
+                <img src="" alt="" class="img1">
+            </div>
+            <div class="swiper-slide">
+                <img src="" alt="" class="img1">
+            </div>
         </div>
         <!-- Add Pagination💟 -->
         <div class="swiper-pagination"></div>
@@ -79,21 +104,21 @@
     <!-- 排行榜效果🔥 -->
     <p id="content-p"><span class="iconfont icon-paihangbang--" id="p-font"></span>排行榜</p>
     <div class="paihang-content">
-    <div>
-        <img src="http://img3m5.ddimg.cn/30/21/23828835-1_w_17.jpg" alt="">
-    </div>
-    <div>
-        <img src="http://img3m5.ddimg.cn/30/21/23828835-1_w_17.jpg" alt="">
-    </div>
-    <div>
-        <img src="http://img3m5.ddimg.cn/30/21/23828835-1_w_17.jpg" alt="">
-    </div>
-    <div>
-        <img src="http://img3m5.ddimg.cn/30/21/23828835-1_w_17.jpg" alt="">
-    </div>
-    <div>
-        <img src="http://img3m5.ddimg.cn/30/21/23828835-1_w_17.jpg" alt="">
-    </div>
+        <div>
+            <img src="" alt="" class="paiimg">
+        </div>
+        <div>
+            <img src="" alt="" class="paiimg">
+        </div>
+        <div>
+            <img src="" alt="" class="paiimg">
+        </div>
+        <div>
+            <img src="" alt="" class="paiimg">
+        </div>
+        <div>
+            <img src="" alt="" class="paiimg">
+        </div>
     </div>
     <!-- 网页底部效果🦶 -->
     <footer>
@@ -103,6 +128,8 @@
 </body>
 <script src="./JS/swiper-3.4.2.min.js"></script>
 <script src="./bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+<script src="./JS/axios.min.js"></script>
+<script src="./JS/index.js"></script>
 <script>
     // 给轮播图添加效果💟
     var swiper = new Swiper('.swiper-container', {
@@ -121,4 +148,5 @@
         },
     });
 </script>
+
 </html>

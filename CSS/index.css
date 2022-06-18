@@ -63,6 +63,10 @@ header #iconfont-paihang {
     transition             : 300ms;
     transform              : scale(0.8);
 }
+.img1{
+    width: 350px !important;
+    height: 350px !important;
+}
 
 .swiper-slide-active,
 .swiper-slide-duplicate-active {
@@ -92,7 +96,6 @@ header #iconfont-paihang {
     width : 240px;
     height: 240px;
 }
-
 /* 网页底部效果 🦶*/
 footer {
     width           : 100%;
