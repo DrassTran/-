@@ -6,8 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./layui-v2.6.11/layui/css/layui.css">
     <script src="./JS/jquery.min.js"></script>
     <script src="./JS/axios.min.js"></script>
+    <script src="./layui-v2.6.11/layui/layui.js"></script>
     <link rel="stylesheet" href="./bootstrap-3.4.1-dist/css/bootstrap.min.css">
     <script src="./bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./iconfont/图书和排行榜服务器字体/font_qizqwal6edr/iconfont.css">
@@ -52,23 +54,27 @@
         </nav>
     </header>
     <!-- 开发书籍介绍 📖-->
-    <div class="content-main" style="width:100% ;height: 556px;">
+    <div class="content-main" style="width:100% ;height: 100%;">
         <div class="content-img" style="width:350px ;">
-            <img src="http://img3m6.ddimg.cn/31/22/23828836-1_w_16.jpg" alt="">
+            <img src="" alt="" id="booksImg" style="width: 350px;height: 350px;">
         </div>
         <div class="content-font" style="width: 400px;">
             <div>
-                <p class="content-font-p"><span class="content-em">书名：</span><span>《红楼梦》</span></p>
+                <p class="content-font-p"><span class="content-em">书名：</span><span id="booksTitle"></span></p>
             </div>
             <div>
-                <p><span  class="content-em">作者：</span><span>曹雪芹</span></p>
+                <p><span  class="content-em">作者：</span><span id="booksAuthor"></span></p>
             </div>
             <div>
-                <p><span  class="content-em">简介：</span><span>《红楼梦》讲述的是发生在一个虚构朝代的封建大家庭中的人事物，其中以贾宝玉、林黛玉、薛宝钗三个人之间的感情纠葛为主线通过对一些日常事件的描述体现了在贾府的大观园中以金陵十二钗为主体的众女子的爱恨情愁。而在这同时又从贾府由富贵堂皇走向没落衰败的次线反映了一个大家族的没落历程和这个看似华丽的家族的丑陋的内在。</span>
+                <p><span  class="content-em">简介：</span><span id="booksDesc"></span>
                 </p>
             </div>
             <div>
-                <p><span  class="content-em">评分：</span><span>星星</span></p>
+                <p class="pingfenP" style="width: 500px;">
+                    <span  class="content-em">评分：</span>
+                    <span id="star"></span>
+                    <span id="booksRate"></span>
+                </p>
             </div>
         </div>
 
@@ -80,5 +86,5 @@
 
 </body>
 <script src="./bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
-
+<script src="./JS/books.js"></script>
 </html>

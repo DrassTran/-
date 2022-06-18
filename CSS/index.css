@@ -67,7 +67,9 @@ header #iconfont-paihang {
     width: 350px !important;
     height: 350px !important;
 }
-
+.swiper-slide{
+    cursor: pointer;
+}
 .swiper-slide-active,
 .swiper-slide-duplicate-active {
     transform: scale(1);
@@ -95,6 +97,9 @@ header #iconfont-paihang {
 .paihang-content div img {
     width : 240px;
     height: 240px;
+}
+.Div1{
+    cursor: pointer;
 }
 /* 网页底部效果 🦶*/
 footer {

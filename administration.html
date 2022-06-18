@@ -126,7 +126,6 @@
         try {
             let { data: gen } = await axios.get("http://localhost:3005/books?_page=1&_limit=10&_sort=id&_order=asc");
             console.log(gen.data);
-            console.log();
             layui.use('table', function () {
                 var table = layui.table;
                 //行工具事件
@@ -151,7 +150,7 @@
                             btn: ["确认", "取消"],
                             //给新增按钮里的立即提交按钮与AJAX相连并渲染到页面🌈🌈🌈
                             yes: function (index, layero) {
-                               /*  console.log('qweqwe', gen.data[index - 1].id, $("#titleinput").val(), $("#authorinput").val(), $("#descinput").val(), $("#imgurl").val()) */
+                                /*  console.log('qweqwe', gen.data[index - 1].id, $("#titleinput").val(), $("#authorinput").val(), $("#descinput").val(), $("#imgurl").val()) */
 
                                 //编辑功能
                                 axios({
@@ -198,7 +197,7 @@
                     }
                     //给查看设置页面跳转🐟🐟🐟
                     else if (obj.event === 'detail') {
-                        window.location.href = './books.html';
+                        window.location.assign('./books.html?id=' + data.id)
                     }
                 });
                 //展示已知数据

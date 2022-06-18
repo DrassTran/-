@@ -58,6 +58,17 @@ header #iconfont-paihang {
 .content-em{
     font-weight: bold;
 }
+.pingfen-p{
+    display: flex;
+    flex-wrap: nowrap;
+}
+#star{
+    position: relative;
+}
+#booksRate{
+  position: relative;
+  top: -3px;
+}
 /* 设置底部效果🦶 */
 footer {
     width           : 100%;
