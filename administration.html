@@ -139,18 +139,18 @@
 </body>
 
 <script type="text/html" id="toolbarDemo">
-    <div class="layui-btn-container">
-      <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-      <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
-    <!-- 新增 👻👻👻-->
-    <button class="layui-btn layui-btn-sm" lay-event="add">新增</button>
+        <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+        <!-- 新增 👻👻👻-->
+        <button class="layui-btn layui-btn-sm" lay-event="add">新增</button>
     </div>
-  </script>
+</script>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-  </script>
+</script>
 <script src="./layui-v2.6.11/layui/layui.js"></script>
 <script src="./JS/axios.min.js"></script>
 <script>
@@ -206,7 +206,7 @@
                                         name: $("#titleinput2").val(),
                                         author: $("#authorinput2").val(),
                                         desc: $("#descinput2").val(),
-                                        rate:+$("#fenshu2").text(),
+                                        rate: +$("#fenshu2").text(),
                                         coverImg: $("#imgUrl1").val(),
                                     },
                                 }).then(data => {
@@ -254,7 +254,7 @@
                                 field: 'rate', title: '评分', width: 400, sort: true, templet: function (d) {
                                     let i = d.LAY_INDEX
                                     layui.use('rate', function () {
-                                        console.log("111111111111111",d.rate);
+                                        console.log("111111111111111", d.rate);
                                         var rate = layui.rate;
                                         //渲染
                                         let obj = {}
@@ -347,6 +347,7 @@
         }
     }
     fun()
+
     /* 毁灭吧该死的页面。
         💀💀💀💀💀💀     
         💀          💀

@@ -1,5 +1,7 @@
 /* 给轮播图添加后台服务器数据 🖼️🖼️🖼️*/
 let img = document.querySelectorAll(".img1")
+let Rotation = document.getElementById("Rotation")
+var swiper;
 async function change() {
     try {
         let { data: oimg } = await axios({
@@ -7,15 +9,37 @@ async function change() {
             url: "http://localhost:3005/books"
         });
         console.log(oimg);
-        for (let i = 0; i < 8; i++) {
-            $(".img1").eq(i).attr({ 'src':oimg.data[i].coverImg})
+        for (let i = 0; i < oimg.data.length; i++) {
+            let lunboDiv = document.createElement("div");
+            lunboDiv.classList.add("swiper-slide");
+            let luboImg = document.createElement("img")
+            luboImg.classList.add("img1")
+            lunboDiv.appendChild(luboImg)
+            Rotation.appendChild(lunboDiv)
+            $(".img1").eq(i).attr({ 'src': oimg.data[i].coverImg })
         }
+        // 给轮播图添加效果💟
+        swiper = new Swiper('.swiper-container', {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            centeredSlides: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            loop: true,
+            autoplay: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
         // 点击轮播图里的图片可以跳转页面
         let slide = document.querySelectorAll(".swiper-slide")
         console.log(slide);
         for (let i = 0; i < slide.length; i++) {
             slide[i].onclick = function () {
-                window.location.href = "./books.html?id="+oimg.data[i].id
+                window.location.href = "./books.html?id=" + oimg.data[i].id
             }
         }
 
@@ -36,10 +60,10 @@ async function paih() {
             // console.log(paihang.data[i]);
             //给排行榜添加跳转页面效果
         }
-        for(let i = 0;i<paiImg.length;i++){
+        for (let i = 0; i < paiImg.length; i++) {
             console.log(i);
-            paiImg[i].onclick = function(){
-                window.location.href = "./books.html?id="+paihang.data[i].id
+            paiImg[i].onclick = function () {
+                window.location.href = "./books.html?id=" + paihang.data[i].id
             }
         }
     } catch (e) {
