@@ -1,5 +1,4 @@
 /* 给轮播图添加后台服务器数据 🖼️🖼️🖼️*/
-let img = document.querySelectorAll(".img1")
 let Rotation = document.getElementById("Rotation")
 var swiper;
 async function change() {
@@ -17,7 +16,12 @@ async function change() {
             lunboDiv.appendChild(luboImg)
             Rotation.appendChild(lunboDiv)
             $(".img1").eq(i).attr({ 'src': oimg.data[i].coverImg })
+            // 点击轮播图里的图片可以跳转页面
+            $(".img1").eq(i).on("click",function(){
+                window.location.href = "./books.html?id="+oimg.data[i].id
+            })
         }
+        // console.log("1111111111",oimg.data);
         // 给轮播图添加效果💟
         swiper = new Swiper('.swiper-container', {
             slidesPerView: 3,
@@ -34,15 +38,8 @@ async function change() {
                 prevEl: '.swiper-button-prev',
             },
         });
-        // 点击轮播图里的图片可以跳转页面
-        let slide = document.querySelectorAll(".swiper-slide")
-        console.log(slide);
-        for (let i = 0; i < slide.length; i++) {
-            slide[i].onclick = function () {
-                window.location.href = "./books.html?id=" + oimg.data[i].id
-            }
-        }
-
+        // console.log("11111111111",img);
+        
     } catch (e) {
         console.log(e);
     }
