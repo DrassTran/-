@@ -104,22 +104,22 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">书名</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" required lay-verify="required" placeholder="请输入书名"
-                        autocomplete="off" class="layui-input" id="titleinput2">
+                    <input type="text" name="title" required lay-verify="required" autocomplete="off"
+                        class="layui-input" id="titleinput2">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">封面图</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" required lay-verify="required" placeholder="请输入封面图对应的URL"
-                        autocomplete="off" class="layui-input" id="imgUrl1">
+                    <input type="text" name="title" required lay-verify="required" autocomplete="off"
+                        class="layui-input" id="imgUrl1">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">作者</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" required lay-verify="required" placeholder="请输入作者"
-                        autocomplete="off" class="layui-input" id="authorinput2">
+                    <input type="text" name="title" required lay-verify="required" autocomplete="off"
+                        class="layui-input" id="authorinput2">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -131,7 +131,7 @@
             <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">简介</label>
                 <div class="layui-input-block">
-                    <textarea name="desc" placeholder="请输入内容" class="layui-textarea" id="descinput2"></textarea>
+                    <textarea name="desc" class="layui-textarea" id="descinput2"></textarea>
                 </div>
             </div>
         </form>
@@ -154,16 +154,25 @@
 <script src="./layui-v2.6.11/layui/layui.js"></script>
 <script src="./JS/axios.min.js"></script>
 <script>
+    let titleinput2 = document.querySelector("#titleinput2")
+    let authorinput2 = document.querySelector("#authorinput2")
+    let descinput2 = document.querySelector("#descinput2")
+    let imgUrl1 = document.querySelector("#imgUrl1")
     async function fun() {
         try {
             let { data: gen } = await axios.get("http://localhost:3005/books?_sort=rate&_order=desc&_start=0");
-            console.log(gen.data);
+            // console.log(gen.data);
+
             layui.use('table', function () {
                 var table = layui.table;
                 //行工具事件
                 table.on('tool(demo)', function (obj) {
                     var data = obj.data;
-                    //console.log(obj)
+                    console.log(data)
+                    titleinput2.value = data.name;
+                    authorinput2.value = data.author;
+                    descinput2.value = data.desc;
+                    imgUrl1.value = data.coverImg;
                     if (obj.event === 'del') {
                         layer.confirm('真的删除行么', function (index) {
                             obj.del();
@@ -198,32 +207,24 @@
                             btn: ["确认", "取消"],
                             //给编辑按钮里的确定按钮与AJAX相连并渲染到页面🌈🌈🌈
                             yes: function (index, layero) {
-                                //编辑功能
-                                axios({
-                                    method: "put",
-                                    url: "http://localhost:3005/books/" + data.id,
-                                    data: {
-                                        name: $("#titleinput2").val(),
-                                        author: $("#authorinput2").val(),
-                                        desc: $("#descinput2").val(),
-                                        rate: +$("#fenshu2").text(),
-                                        coverImg: $("#imgUrl1").val(),
-                                    },
-                                }).then(data => {
-                                    console.log('11111111111', data.data);
-                                    /* axios({
-                                        method: "GET",
-                                        url: `http://localhost:3005/books`,
-                                        params: {
-                                            id: data.id
+                                if ($("#titleinput2").val() === "" || $("#authorinput2").val() === "" || $("#imgur2").val() === "") {
+                                    return
+                                } else {
+                                    //编辑功能
+                                    axios({
+                                        method: "put",
+                                        url: "http://localhost:3005/books/" + data.id,
+                                        data: {
+                                            name: $("#titleinput2").val(),
+                                            author: $("#authorinput2").val(),
+                                            desc: $("#descinput2").val(),
+                                            rate: +$("#fenshu2").text(),
+                                            coverImg: $("#imgUrl1").val(),
                                         },
                                     }).then(data => {
-                                        console.log('2222222', data.data);
-                                    }) */
-                                    // 将请求回来的值渲染页面
-                                    render()
-                                })
-
+                                        console.log('11111111111', data.data);
+                                    })
+                                }
                                 window.location.href = "./administration.html"
                             }
                         });
@@ -254,7 +255,7 @@
                                 field: 'rate', title: '评分', width: 400, sort: true, templet: function (d) {
                                     let i = d.LAY_INDEX
                                     layui.use('rate', function () {
-                                        console.log("111111111111111", d.rate);
+                                        // console.log("111111111111111", d.rate);
                                         var rate = layui.rate;
                                         //渲染
                                         let obj = {}
@@ -317,22 +318,25 @@
                                 btn: ["确认", "取消"],
                                 //给新增按钮里的立即提交按钮与AJAX相连并渲染到页面🌈🌈🌈
                                 yes: function (index, layero) {
-                                    //按钮【确认按钮】的回调⛲⛲⛲
-                                    axios({
-                                        method: "post",
-                                        url: `http://localhost:3005/books`,
-                                        data: {
-                                            name: $("#titleinput").val(),
-                                            author: $("#authorinput").val(),
-                                            desc: $("#descinput").val(),
-                                            coverImg: $("#imgurl").val(),
-                                            rate: +$("#fenshu1").text(),
-                                        }
-                                    }).then(data => {
-                                        console.log(data.data);
-                                    })
-
-                                    window.location.href = "./administration.html"
+                                    if ($("#titleinput").val() === "" || $("#authorinput").val() === "" || $("#imgurl").val() === "") {
+                                        return
+                                    } else {
+                                        //按钮【确认按钮】的回调⛲⛲⛲
+                                        axios({
+                                            method: "post",
+                                            url: `http://localhost:3005/books`,
+                                            data: {
+                                                name: $("#titleinput").val(),
+                                                author: $("#authorinput").val(),
+                                                desc: $("#descinput").val(),
+                                                coverImg: $("#imgurl").val(),
+                                                rate: +$("#fenshu1").text(),
+                                            }
+                                        }).then(data => {
+                                            console.log(data.data);
+                                        })
+                                        window.location.href = "./administration.html"
+                                    }
                                 }
                             });
                             layer.title("新增");
