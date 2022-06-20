@@ -6,13 +6,13 @@ async function change() {
             method: "get",
             url: "http://localhost:3005/books"
         });
-        ;
-        for (let i = 0; i <= img.length; i++) {
-            $(".img1").eq(i).attr({ 'src': oimg.data[i].coverImg })
+        console.log(oimg);
+        for (let i = 0; i < 8; i++) {
+            $(".img1").eq(i).attr({ 'src':oimg.data[i].coverImg})
         }
         // 点击轮播图里的图片可以跳转页面
         let slide = document.querySelectorAll(".swiper-slide")
-        // console.log(slide);
+        console.log(slide);
         for (let i = 0; i < slide.length; i++) {
             slide[i].onclick = function () {
                 window.location.href = "./books.html?id="+oimg.data[i].id

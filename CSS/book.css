@@ -3,7 +3,6 @@
     margin : 0;
     padding: 0;
 }
-
 /* 导航栏的背景颜色 💕💕💕*/
 header .header-background {
     background-color: #333333;
@@ -37,38 +36,47 @@ header #iconfont-paihang {
 }
 
 /* 开发书籍介绍 📖 */
-.content-main{
-    display: flex;
-    flex-wrap: nowrap;
+.content-main {
+    width: 100%;
+    height: calc(100vh - 166px) !important;
+    display    : flex;
+    flex-wrap  : nowrap;
     align-items: center;
-    gap: 6.25rem;
-    
+    gap        : 6.25rem;
 }
-.content-img{
+
+.content-img {
     margin-left: 200px;
 }
+
 /* 设置文字样式 */
 .content-font {
     margin-top: 50px;
 }
+
 .content-font div p {
-    line-height: 30px;
-    letter-spacing:5px;
+    line-height   : 30px;
+    letter-spacing: 5px;
 }
-.content-em{
+
+.content-em {
     font-weight: bold;
 }
-.pingfen-p{
-    display: flex;
+
+.pingfen-p {
+    display  : flex;
     flex-wrap: nowrap;
 }
-#star{
+
+#star {
     position: relative;
 }
-#booksRate{
-  position: relative;
-  top: -3px;
+
+#booksRate {
+    position: relative;
+    top     : -3px;
 }
+
 /* 设置底部效果🦶 */
 footer {
     width           : 100%;

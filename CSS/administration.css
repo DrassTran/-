@@ -61,7 +61,12 @@ header #iconfont-paihang {
     max-width:200px;
 }
 /* 点击新增按钮出来的框 */
-#model{
+#model1{
+    display: none;
+    text-overflow: inherit;
+    white-space: normal;
+}
+#model2{
     display: none;
     text-overflow: inherit;
     white-space: normal;
@@ -70,6 +75,31 @@ header #iconfont-paihang {
     position: relative;
     left: 0px;
     top: 0px;
+}
+#pingfen2{
+    position: relative;
+    left: 0px;
+    top: 0px;
+}
+#fenshu1{
+    position: relative;
+    top: -1px;
+    left: 10px;
+    }
+#fen1{
+position: relative;
+top: -1px;
+left: 10px;
+}
+#fenshu2{
+    position: relative;
+    top: -1px;
+    left: 10px;
+    }
+#fen2{
+position: relative;
+top: -1px;
+left: 10px;
 }
 .star{
     position: relative;

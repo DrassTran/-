@@ -61,7 +61,7 @@
         <p>© 2022 三味书屋 隐私政策 京ICP证080268号 京ICP备10005211号</p>
     </footer>
     <!-- 点击新增出来模态框 -->
-    <div id="model">
+    <div id="model1">
         <form class="layui-form" action="">
             <div class="layui-form-item">
                 <label class="layui-form-label">书名</label>
@@ -87,7 +87,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label" id="pingfen">评分</label>
                 <div>
-                    <div id="test8" class="star"></div>
+                    <div id="test8" class="star"></div><span id="fenshu1"></span><span id="fen1">分</span>
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
@@ -96,12 +96,44 @@
                     <textarea name="desc" placeholder="请输入内容" class="layui-textarea" id="descinput"></textarea>
                 </div>
             </div>
-            <!--             <div class="layui-form-item">
-                <div class="layui-input-block" id="Allbtn">
-                    <button class="layui-btn" lay-submit lay-filter="formDemo" id="addbtn">立即提交</button>
-                    <button  class="layui-btn layui-btn-primary" id="cancel">取消</button>
+        </form>
+    </div>
+    <!-- 给编辑事件设置的模态框 -->
+    <div id="model2">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">书名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required lay-verify="required" placeholder="请输入书名"
+                        autocomplete="off" class="layui-input" id="titleinput2">
                 </div>
-            </div> -->
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">封面图</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required lay-verify="required" placeholder="请输入封面图对应的URL"
+                        autocomplete="off" class="layui-input" id="imgUrl1">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">作者</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required lay-verify="required" placeholder="请输入作者"
+                        autocomplete="off" class="layui-input" id="authorinput2">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" id="pingfen2">评分</label>
+                <div>
+                    <div id="star2" class="star"></div><span id="fenshu2"></span><span id="fen2">分</span>
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">简介</label>
+                <div class="layui-input-block">
+                    <textarea name="desc" placeholder="请输入内容" class="layui-textarea" id="descinput2"></textarea>
+                </div>
+            </div>
         </form>
     </div>
 </body>
@@ -142,52 +174,54 @@
                             })
                         });
                     } else if (obj.event === 'edit') {
+                        //星星
+                        layui.use(['rate'], function () {
+                            var rate = layui.rate;
+                            let obj = {};
+                            var ins1 = rate.render({
+                                elem: '#star2'
+                                , length: 10,
+                                value: 0,
+                                half: true,
+                                readonely: true,
+                                choose: value => {
+                                    $("#fenshu2").text(value)
+                                    // console.log(value);
+                                }
+                            });
+                        })
                         layer.open({
                             type: 1,
                             skin: 'layui-layer-rim', //加上边框
                             area: ['750px', '700px'], //宽高
-                            content: $('#model'),
+                            content: $('#model2'),
                             btn: ["确认", "取消"],
                             //给编辑按钮里的确定按钮与AJAX相连并渲染到页面🌈🌈🌈
                             yes: function (index, layero) {
-                                /*  console.log('qweqwe', gen.data[index - 1].id, $("#titleinput").val(), $("#authorinput").val(), $("#descinput").val(), $("#imgurl").val()) */
-
                                 //编辑功能
                                 axios({
                                     method: "put",
                                     url: "http://localhost:3005/books/" + data.id,
                                     data: {
-                                        name: $("#titleinput").val(),
-                                        author: $("#authorinput").val(),
-                                        desc: $("#descinput").val(),
-                                        coverImg: $("#imgurl").val()
+                                        name: $("#titleinput2").val(),
+                                        author: $("#authorinput2").val(),
+                                        desc: $("#descinput2").val(),
+                                        rate:+$("#fenshu2").text(),
+                                        coverImg: $("#imgUrl1").val(),
                                     },
                                 }).then(data => {
                                     console.log('11111111111', data.data);
-                                    axios({
+                                    /* axios({
                                         method: "GET",
                                         url: `http://localhost:3005/books`,
                                         params: {
-                                            id: gen.data[index - 1].id
+                                            id: data.id
                                         },
                                     }).then(data => {
                                         console.log('2222222', data.data);
-                                    })
+                                    }) */
                                     // 将请求回来的值渲染页面
                                     render()
-                                    //编辑功能里选择星星个数
-                                    /* layui.use(['rate'], function () {
-                                        var rate = layui.rate;
-                                        let obj = {};
-                                        var ins1 = rate.render({
-                                            elem: '#test8'
-                                            , length: 10,
-                                            value: obj.rate
-                                            , //初始值
-                                            half: true,
-                                            readonely: true,
-                                        });
-                                    }) */
                                 })
 
                                 window.location.href = "./administration.html"
@@ -220,7 +254,7 @@
                                 field: 'rate', title: '评分', width: 400, sort: true, templet: function (d) {
                                     let i = d.LAY_INDEX
                                     layui.use('rate', function () {
-                                        // console.log(d.rate);
+                                        console.log("111111111111111",d.rate);
                                         var rate = layui.rate;
                                         //渲染
                                         let obj = {}
@@ -229,7 +263,7 @@
                                             , length: 10
                                             , half: true
                                             , value: d.rate
-                                            , readonly: true
+                                            , readonly: true,
                                         });
                                     });
                                     i++
@@ -245,7 +279,7 @@
                         , limits: [5, 10, 15, 20]
                         , limit: 5 //每页默认显示的数量
                     });
-                    //头工具栏事件除新增功能
+                    //头工具栏事件
                     table.on('toolbar(demo)', function (obj) {
                         var checkStatus = table.checkStatus(obj.config.id);
                         switch (obj.event) {
@@ -259,48 +293,52 @@
                         };
                         // 给页面添加新增按钮😝😝😝
                         if (obj.event === "add") {
+                            //星星
+                            layui.use(['rate'], function () {
+                                var rate = layui.rate;
+                                let obj = {};
+                                var ins1 = rate.render({
+                                    elem: '#test8'
+                                    , length: 10
+                                    , //初始值
+                                    half: true,
+                                    readonely: true,
+                                    choose: value => {
+                                        $("#fenshu1").text(value)
+                                    }
+                                });
+                            })
                             //页面层
                             layer.open({
                                 type: 1,
                                 skin: 'layui-layer-rim', //加上边框
                                 area: ['750px', '700px'], //宽高
-                                content: $('#model'),
+                                content: $('#model1'),
                                 btn: ["确认", "取消"],
                                 //给新增按钮里的立即提交按钮与AJAX相连并渲染到页面🌈🌈🌈
                                 yes: function (index, layero) {
                                     //按钮【确认按钮】的回调⛲⛲⛲
                                     axios({
                                         method: "post",
-                                        url: `http://localhost:3005/books?`,
+                                        url: `http://localhost:3005/books`,
                                         data: {
                                             name: $("#titleinput").val(),
                                             author: $("#authorinput").val(),
                                             desc: $("#descinput").val(),
-                                            coverImg: $("#imgurl").val()
+                                            coverImg: $("#imgurl").val(),
+                                            rate: +$("#fenshu1").text(),
                                         }
                                     }).then(data => {
                                         console.log(data.data);
-                                        //新增功能里选择星星个数
-                                        layui.use(['rate'], function () {
-                                            var rate = layui.rate;
-                                            let obj = {};
-                                            var ins1 = rate.render({
-                                                elem: '#test8'
-                                                , length: 10,
-                                                value: obj.rate
-                                                , //初始值
-                                                half: true,
-                                                readonely: true,
-                                            });
-                                        })
                                     })
 
                                     window.location.href = "./administration.html"
                                 }
                             });
-                            layer.title("新增")
+                            layer.title("新增");
                         }
                     });
+
                 }
                 render();
             });
@@ -309,28 +347,15 @@
         }
     }
     fun()
-
-    //星星
-    layui.use(['rate'], function () {
-        var rate = layui.rate;
-        let obj = {};
-        var ins1 = rate.render({
-            elem: '#test8'
-            , length: 10
-            , //初始值
-            half: true,
-            readonely: true,
-        });
-    })
     /* 毁灭吧该死的页面。
-       💀💀💀💀💀💀     
-       💀          💀
-       💀          💀           
-       💀💀💀💀💀💀             
-       💀          💀   
-       💀          💀           
-       💀          💀                     
-       💀💀💀💀💀💀            
+        💀💀💀💀💀💀     
+        💀          💀
+        💀          💀           
+        💀💀💀💀💀💀             
+        💀          💀   
+        💀          💀           
+        💀          💀                     
+        💀💀💀💀💀💀            
     
     */
 </script>
