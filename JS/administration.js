@@ -71,7 +71,7 @@ async function fun() {
                         var ins1 = rate.render({
                             elem: '#star2'
                             , length: 10,
-                            value: 0,
+                            value: +$("#fenshu2").text(),
                             half: true,
                             readonely: true,
                             choose: value => {
