@@ -108,10 +108,10 @@ axios.get("http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=10
                 type: "bar",
                 yAxisIndex: 0,
                 data: data,
-                barWidth: 30,
+                barWidth:15,
                 itemStyle: {
                     normal: {
-                        barBorderRadius: 30,
+                        barBorderRadius: 15,
                         color: function (params) {
                             var num = myColor.length;
                             return myColor[params.dataIndex % num];
