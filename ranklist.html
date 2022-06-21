@@ -6,15 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./layui-v2.6.11/layui/css/layui.css">
     <script src="./JS/jquery.min.js"></script>
+    <script src="./JS/axios.min.js"></script>
+    <script src="./layui-v2.6.11/layui/layui.js"></script>
     <link rel="stylesheet" href="./bootstrap-3.4.1-dist/css/bootstrap.min.css">
     <script src="./bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./iconfont/图书和排行榜服务器字体/font_qizqwal6edr/iconfont.css">
-    <link rel="stylesheet" href="./CSS/swiper.min.css">
-    <link rel="stylesheet" href="./CSS/index.css">
+    <link rel="stylesheet" href="./CSS/ranklist.css">
 </head>
-<body> 
-    <!-- 设置主页的头部 🥴-->
+
+<body>
     <header>
         <nav class="navbar navbar-inverse  header-background">
             <div class="container-fluid">
@@ -27,7 +29,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand font-color" href="#">三味书屋</a>
+                    <a class="navbar-brand font-color" href="./index main.html">三味书屋</a>
                 </div>
 
                 <!-- 搜索框的内容🥁🥁🥁-->
@@ -37,59 +39,22 @@
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="请输入书名" style="width: 400px;">
                         </div>
-                        <!-- 创建搜索框里的提交按钮🥰 -->
-                        
                     </form>
-                    <button class="btn btn-default headerbtn"><span
-                        class="glyphicon glyphicon-search"></span></button>
+                    <!-- 创建搜索框里的提交按钮🥰 -->
+                    <button type="submit" class="btn btn-default headerbtn"><span
+                            class="glyphicon glyphicon-search"></span></button>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="./administration.html" class="font-color">
-                            <span class="iconfont icon-tushu"
-                                    id="iconfont-tushu">
-                                </span>书籍管理</a></li>
+                        <li><a href="./administration.html" class="font-color"><span class="iconfont icon-tushu"
+                                    id="iconfont-tushu"></span>书籍管理</a></li>
                         <li><a href="./ranklist.html" class="font-color">
-                                <span class="iconfont icon-paihangbang--" id="iconfont-paihang"></span>排行榜</a></li>
+                                <span class="iconfont icon-paihangbang--" id="iconfont-paihang"></span> 排行榜</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
     </header>
-    <!-- 轮播图效果💟 -->
-    <div class="swiper-container">
-        <div class="swiper-wrapper" id="Rotation">
-        </div>
-        <!-- Add Pagination💟 -->
-        <div class="swiper-pagination"></div>
-        <!-- Add Arrows -->
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-    </div>
-    <!-- 排行榜效果🔥 -->
-    <p id="content-p"><span class="iconfont icon-paihangbang--" id="p-font"></span>排行榜</p>
-    <div class="paihang-content">
-        <div class="Div1">
-            <img src="" alt="" class="paiimg">
-        </div>
-        <div class="Div1">
-            <img src="" alt="" class="paiimg">
-        </div>
-        <div class="Div1">
-            <img src="" alt="" class="paiimg">
-        </div>
-        <div class="Div1">
-            <img src="" alt="" class="paiimg">
-        </div>
-        <div  class="Div1">
-            <img src="" alt="" class="paiimg">
-        </div>
-    </div>
-    <!-- 网页底部效果🦶 -->
-    <footer>
-        <p>© 2022 三味书屋 隐私政策 京ICP证080268号 京ICP备10005211号</p>
-    </footer>
 </body>
-<script src="./JS/swiper-3.4.2.min.js"></script>
 <script src="./bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
-<script src="./JS/axios.min.js"></script>
-<script src="./JS/index.js"></script>
+<script src="./JS/ranklist.js"></script>
+
 </html>
