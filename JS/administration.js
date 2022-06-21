@@ -39,8 +39,9 @@ let imgUrl1 = document.querySelector("#imgUrl1");
 let fenshu2 = document.querySelector("#fenshu2");
 async function fun() {
     try {
-        let { data: gen } = await axios.get("http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit");
-        console.log(gen.data);
+        let { data: gen } = await axios.get("http://localhost:3005/books?");
+        /* console.log(gen.data); */
+        // console.log(excelimgurl);
         layui.use('table', function () {
             var table = layui.table;
             //行工具事件
@@ -140,7 +141,7 @@ async function fun() {
                                 table.render({
                                     elem: '#demo',
                                     toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
-                                    , defaultToolbar: ['filter', 'exports', 'print',]
+                                    , defaultToolbar: ['print',]
                                     , title: '书籍管理', cols: [[ //标题栏
                                         { type: 'checkbox' }
                                         , { field: 'name', title: '书名', width: 140, unresize: true, sort: true },
@@ -174,11 +175,6 @@ async function fun() {
                                         , { title: '操作', toolbar: '#barDemo', width: 200 },
                                     ]]
                                     , data: data.data.data
-                                    //,skin: 'line' //表格风格
-                                    /*                         , even: true
-                                                            , page: true //是否显示分页
-                                                            , limits: [5, 10, 15, 20]
-                                                            , limit: 5 //每页默认显示的数量 */
                                 });
                             })
                             // console.log(fenye);
@@ -247,8 +243,23 @@ async function fun() {
                         });
                         layer.title("新增");
                     }
+                    // 导出Excel功能🌮🌮🌮
+                    if (obj.event === "excel") {
+                        console.log(gen.data);
+                        let aoa = [["书名","封面图","作者","简介"]]
+                        gen.data.forEach(item => {
+                            let arr = [];
+                            arr[0] = item.name;
+                            arr[1] = item.coverImg;
+                            arr[2] = item.author;
+                            arr[3] = item.desc;
+                            aoa.push(arr);
+                        });
+                        var sheet = XLSX.utils.aoa_to_sheet(aoa);
+                        openDownloadDialog(sheet2blob(sheet), '书籍.xlsx');
+                    }
+                    // console.log(gen.data.data);
                 });
-
             }
             render();
         });
@@ -269,3 +280,50 @@ fun()
 💀💀💀💀💀💀            
  
 */
+
+/**
+ * 通用的打开下载对话框方法，没有测试过具体兼容性
+ * @param url 下载地址，也可以是一个blob对象，必选
+ * @param saveName 保存文件名，可选
+ */
+function openDownloadDialog(url, saveName) {
+    if (typeof url == 'object' && url instanceof Blob) {
+        url = URL.createObjectURL(url); // 创建blob地址
+    }
+    var aLink = document.createElement('a');
+    aLink.href = url;
+    aLink.download = saveName || ''; // HTML5新增的属性，指定保存文件名，可以不要后缀，注意，file:///模式下不会生效
+    var event;
+    if (window.MouseEvent) event = new MouseEvent('click');
+    else {
+        event = document.createEvent('MouseEvents');
+        event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+    }
+    aLink.dispatchEvent(event);
+}
+
+// 将一个sheet转成最终的excel文件的blob对象，然后利用URL.createObjectURL下载
+function sheet2blob(sheet, sheetName) {
+    sheetName = sheetName || 'sheet1';
+    var workbook = {
+        SheetNames: [sheetName],
+        Sheets: {}
+    };
+    workbook.Sheets[sheetName] = sheet;
+    // 生成excel的配置项
+    var wopts = {
+        bookType: 'xlsx', // 要生成的文件类型
+        bookSST: false, // 是否生成Shared String Table，官方解释是，如果开启生成速度会下降，但在低版本IOS设备上有更好的兼容性
+        type: 'binary'
+    };
+    var wbout = XLSX.write(workbook, wopts);
+    var blob = new Blob([s2ab(wbout)], { type: "application/octet-stream" });
+    // 字符串转ArrayBuffer
+    function s2ab(s) {
+        var buf = new ArrayBuffer(s.length);
+        var view = new Uint8Array(buf);
+        for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+        return buf;
+    }
+    return blob;
+}
