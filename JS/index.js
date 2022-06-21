@@ -30,7 +30,6 @@ $(".headerbtn").on("click", function () {
 
 })
 
-
 /* 给轮播图添加后台服务器数据 🖼️🖼️🖼️*/
 let Rotation = document.getElementById("Rotation")
 var swiper;

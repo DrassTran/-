@@ -41,19 +41,21 @@ header #iconfont-paihang {
     position: relative;
     top     : 7px;
 }
+
 /* 点击箭头可以返回顶部 */
-.up{
+.up {
     position: fixed;
-    right: 0;
-    bottom: 50px;
-    display: none;
+    right   : 0;
+    bottom  : 50px;
+    display : none;
 }
-  .up img {
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
+
+.up img {
+    width  : 40px;
+    height : 40px;
+    cursor : pointer;
     z-index: 999999;
-  }
+}
 
 /* 设置input动态生成的框 */
 .inputdiv {
@@ -62,9 +64,9 @@ header #iconfont-paihang {
     display         : none;
     position        : absolute;
     left            : 620px;
-    top: 50px;
+    top             : 50px;
     z-index         : 100;
-    cursor: pointer;
+    cursor          : pointer;
 }
 
 .inputdiv::after {
@@ -89,10 +91,12 @@ header #iconfont-paihang {
     position: relative;
     left    : 10px;
 }
-.pIput{
+
+.pIput {
     position: relative;
-    top: 10px;
+    top     : 10px;
 }
+
 /* 轮播图效果 💟*/
 .swiper-container {
     width : 100%;
