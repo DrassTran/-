@@ -35,12 +35,12 @@
                     <form class="navbar-form navbar-left search-move">
                         <!-- 创建头部导航栏的搜索框 🗡️-->
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="请输入书名" style="width: 300px;">
+                            <input type="text" class="form-control" placeholder="请输入书名" style="width: 400px;">
                         </div>
-                        <!-- 创建搜索框里的提交按钮🥰🥰🥰-->
-                        <button type="submit" class="btn btn-default headerbtn"><span
-                                class="glyphicon glyphicon-search"></span></button>
                     </form>
+                        <!-- 创建搜索框里的提交按钮🥰🥰🥰-->
+                    <button type="submit" class="btn btn-default headerbtn"><span
+                        class="glyphicon glyphicon-search"></span></button>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#" class="font-color"><span class="iconfont icon-tushu"
                                     id="iconfont-tushu"></span>书籍管理</a></li>
@@ -154,10 +154,44 @@
 <script src="./layui-v2.6.11/layui/layui.js"></script>
 <script src="./JS/axios.min.js"></script>
 <script>
+
+    // 给input框设置搜索事件
+    let InputDiv = document.createElement("div")
+InputDiv.classList.add("inputdiv")
+// 给input搜索框增添事件😹😹😹
+let group = document.querySelector(".form-group")
+$(".headerbtn").on("click",function(){
+    // 创建搜索联想框
+    group.appendChild(InputDiv)
+    $(".inputdiv").css("display","block")
+    axios.get("http://localhost:3005/books?&name_like="+$(".form-control").val()).then(data=>{
+        // console.log(data.data.data[1].name);
+        if(InputDiv.innerHTML===""){
+        for(let i = 0;i<data.data.data.length;i++){
+            let pInput = document.createElement("p")
+            pInput.classList.add("pIput")
+            let spanInputname = document.createElement("span");
+            spanInputname.innerText = data.data.data[i].name;
+            spanInputname.classList.add("spanName")
+            let spanInputauthor = document.createElement("span");
+            spanInputauthor.innerText = data.data.data[i].author;
+            spanInputauthor.classList.add("spanAuthor")
+            InputDiv.appendChild(pInput);
+            pInput.appendChild(spanInputname);
+            pInput.appendChild(spanInputauthor);
+            $(".pIput").eq(i).on("click",function(){
+                window.location.href = "./books.html?id="+data.data.data[i].id
+            })
+        }}
+    })
+
+})
+
     let titleinput2 = document.querySelector("#titleinput2")
     let authorinput2 = document.querySelector("#authorinput2")
     let descinput2 = document.querySelector("#descinput2")
-    let imgUrl1 = document.querySelector("#imgUrl1")
+    let imgUrl1 = document.querySelector("#imgUrl1");
+    let fenshu2 = document.querySelector("#fenshu2");
     async function fun() {
         try {
             let { data: gen } = await axios.get("http://localhost:3005/books?_sort=rate&_order=desc&_start=0");
@@ -169,9 +203,11 @@
                 table.on('tool(demo)', function (obj) {
                     var data = obj.data;
                     console.log(data)
+                    // 给编辑的input搜索框增添内容
                     titleinput2.value = data.name;
                     authorinput2.value = data.author;
                     descinput2.value = data.desc;
+                    fenshu2.innerText = data.rate
                     imgUrl1.value = data.coverImg;
                     if (obj.event === 'del') {
                         layer.confirm('真的删除行么', function (index) {

@@ -36,6 +36,47 @@ header #iconfont-paihang {
     font-size: 24px;
 }
 
+/* 搜索框按钮的定位 */
+.headerbtn {
+    position: relative;
+    top     : 7px;
+}
+
+/* 设置input动态生成的框 */
+.inputdiv {
+    width           : 325.6px;
+    background-color: white;
+    display         : none;
+    position        : absolute;
+    left            : 620px;
+    top: 50px;
+    z-index         : 100;
+    cursor: pointer;
+}
+
+.inputdiv::after {
+    content          : '';
+    position         : absolute;
+    top              : -8px;
+    left             : 50%;
+    transform        : translateX(-50%);
+    border-left      : 8px solid transparent;
+    border-right     : 8px solid transparent;
+    border-bottom    : 8px solid rgb(255, 255, 255);
+    -webkit-transform: translateX(-50%);
+    -moz-transform   : translateX(-50%);
+    -ms-transform    : translateX(-50%);
+    -o-transform     : translateX(-50%);
+}
+
+/* .liInput{
+    list-style-type: none;
+} */
+.spanAuthor {
+    position: relative;
+    left    : 10px;
+}
+
 /* 轮播图效果 💟*/
 .swiper-container {
     width : 100%;
@@ -63,26 +104,31 @@ header #iconfont-paihang {
     transition             : 300ms;
     transform              : scale(0.8);
 }
-.img1{
-    width: 350px !important;
+
+.img1 {
+    width : 350px !important;
     height: 350px !important;
 }
-.swiper-slide{
+
+.swiper-slide {
     cursor: pointer;
 }
+
 .swiper-slide-active,
 .swiper-slide-duplicate-active {
     transform: scale(1);
 }
 
 /* 排行榜三个字效果🔥 */
-#content-p{
-   font-size: 20px;
-   font-weight: bold;
+#content-p {
+    font-size  : 20px;
+    font-weight: bold;
 }
-#p-font{
+
+#p-font {
     font-size: 20px;
 }
+
 /* 排行榜效果🔥 */
 .paihang-content {
     width          : 100%;
@@ -98,9 +144,11 @@ header #iconfont-paihang {
     width : 240px;
     height: 240px;
 }
-.Div1{
+
+.Div1 {
     cursor: pointer;
 }
+
 /* 网页底部效果 🦶*/
 footer {
     width           : 100%;
