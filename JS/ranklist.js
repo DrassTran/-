@@ -68,6 +68,7 @@ axios.get("http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=10
                 },
                 axisLabel: {
                     textStyle: {
+                        fontSize:15,
                         color: function (value, index) {
                             var num = myColor.length;
                             return myColor[index % num];
@@ -85,6 +86,7 @@ axios.get("http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=10
                 data: valdata,
                 axisLabel: {
                     textStyle: {
+                        fontSize:15,
                         color: function (value, index) {
                             var num = myColor.length;
                             return myColor[index % num];
@@ -108,10 +110,10 @@ axios.get("http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=10
                 type: "bar",
                 yAxisIndex: 0,
                 data: data,
-                barWidth:15,
+                barWidth:20,
                 itemStyle: {
                     normal: {
-                        barBorderRadius: 15,
+                        barBorderRadius: 20,
                         color: function (params) {
                             var num = myColor.length;
                             return myColor[params.dataIndex % num];
@@ -120,6 +122,7 @@ axios.get("http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=10
                 },
                 label: {
                     normal: {
+                        fontSize:15,
                         show: true,
                         position: "inside",
                         formatter: "{c}星",
