@@ -2,29 +2,30 @@ let InputDiv = document.createElement("div")
 InputDiv.classList.add("inputdiv")
 // 给input搜索框增添事件😹😹😹
 let group = document.querySelector(".form-group")
-$(".headerbtn").on("click",function(){
+$(".headerbtn").on("click", function () {
     // 创建搜索联想框
     group.appendChild(InputDiv)
-    $(".inputdiv").css("display","block")
-    axios.get("http://localhost:3005/books?&name_like="+$(".form-control").val()).then(data=>{
+    $(".inputdiv").css("display", "block")
+    axios.get("http://localhost:3005/books?&name_like=" + $(".form-control").val()).then(data => {
         // console.log(data.data.data[1].name);
-        if(InputDiv.innerHTML===""){
-        for(let i = 0;i<data.data.data.length;i++){
-            let pInput = document.createElement("p")
-            pInput.classList.add("pIput")
-            let spanInputname = document.createElement("span");
-            spanInputname.innerText = data.data.data[i].name;
-            spanInputname.classList.add("spanName")
-            let spanInputauthor = document.createElement("span");
-            spanInputauthor.innerText = data.data.data[i].author;
-            spanInputauthor.classList.add("spanAuthor")
-            InputDiv.appendChild(pInput);
-            pInput.appendChild(spanInputname);
-            pInput.appendChild(spanInputauthor);
-            $(".pIput").eq(i).on("click",function(){
-                window.location.href = "./books.html?id="+data.data.data[i].id
-            })
-        }}
+        if (InputDiv.innerHTML === "") {
+            for (let i = 0; i < data.data.data.length; i++) {
+                let pInput = document.createElement("p")
+                pInput.classList.add("pIput")
+                let spanInputname = document.createElement("span");
+                spanInputname.innerText = data.data.data[i].name;
+                spanInputname.classList.add("spanName")
+                let spanInputauthor = document.createElement("span");
+                spanInputauthor.innerText = data.data.data[i].author;
+                spanInputauthor.classList.add("spanAuthor")
+                InputDiv.appendChild(pInput);
+                pInput.appendChild(spanInputname);
+                pInput.appendChild(spanInputauthor);
+                $(".pIput").eq(i).on("click", function () {
+                    window.location.href = "./books.html?id=" + data.data.data[i].id
+                })
+            }
+        }
     })
 
 })
@@ -49,8 +50,8 @@ async function change() {
             Rotation.appendChild(lunboDiv)
             $(".img1").eq(i).attr({ 'src': oimg.data[i].coverImg })
             // 点击轮播图里的图片可以跳转页面
-            $(".img1").eq(i).on("click",function(){
-                window.location.href = "./books.html?id="+oimg.data[i].id
+            $(".img1").eq(i).on("click", function () {
+                window.location.href = "./books.html?id=" + oimg.data[i].id
             })
         }
         // console.log("1111111111",oimg.data);
@@ -71,7 +72,7 @@ async function change() {
             },
         });
         // console.log("11111111111",img);
-        
+
     } catch (e) {
         console.log(e);
     }
@@ -100,3 +101,20 @@ async function paih() {
     }
 }
 paih();
+// 返回顶部按钮
+$(document).ready(function () {
+    $(window).scroll(function () {
+        if ($(document).scrollTop() === 0) {
+            $(".up").hide();
+        }
+        else if ($(document).scrollTop() > 10) {
+            $(".up").show();
+            $(".upimg").on("click", function () {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                });
+            })
+        }
+    });
+});

@@ -327,3 +327,20 @@ function sheet2blob(sheet, sheetName) {
     }
     return blob;
 }
+// 设置返回顶部按钮的点击事件
+$(document).ready(function () {
+    $(window).scroll(function () {
+        if ($(document).scrollTop() ==0 ) {
+            $(".up").hide();
+        }
+        else if ($(document).scrollTop() > 300) {
+            $(".up").show();
+            $(".upimg").on("click", function () {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                });
+            })
+        }
+    });
+});

@@ -77,6 +77,20 @@ header #iconfont-paihang {
     position: relative;
     left    : 10px;
 }
+/* 点击箭头可以返回顶部 */
+.up{
+    position: fixed;
+    right: 0;
+    bottom: 50px;
+    display: none;
+    z-index: 99999999;
+}
+.up img {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 99999999;
+  }
 /* 给大盒子添加样式 */
 .admin-content{
     width: 100%;

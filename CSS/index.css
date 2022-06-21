@@ -41,6 +41,19 @@ header #iconfont-paihang {
     position: relative;
     top     : 7px;
 }
+/* 点击箭头可以返回顶部 */
+.up{
+    position: fixed;
+    right: 0;
+    bottom: 50px;
+    display: none;
+}
+  .up img {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 999999;
+  }
 
 /* 设置input动态生成的框 */
 .inputdiv {
