@@ -102,6 +102,12 @@ header #iconfont-paihang {
     position: relative;
     max-width:200px;
 }
+/* 给分页器增加样式 */
+.fenye{
+    position: relative;
+    left: 1000px;
+
+}
 /* 点击新增按钮出来的框 */
 #model1{
     display: none;
