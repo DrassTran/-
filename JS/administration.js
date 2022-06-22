@@ -8,31 +8,32 @@ $(".headerbtn").on("click", function () {
     $(".inputdiv").css("display", "block")
     axios.get("http://localhost:3005/books?&name_like=" + $(".form-control").val()).then(data => {
         function fn() {
-            if(InputDiv.innerHTML===""){
-            for (let i = 0; i < data.data.data.length; i++) {
-                let pInput = document.createElement("p")
-                pInput.classList.add("pIput")
-                let spanInputname = document.createElement("span");
-                spanInputname.innerText = data.data.data[i].name;
-                spanInputname.classList.add("spanName")
-                let spanInputauthor = document.createElement("span");
-                spanInputauthor.innerText = data.data.data[i].author;
-                spanInputauthor.classList.add("spanAuthor")
-                InputDiv.appendChild(pInput);
-                pInput.appendChild(spanInputname);
-                pInput.appendChild(spanInputauthor);
-                $(".pIput").eq(i).on("click", function () {
-                    window.location.href = "./books.html?id=" + data.data.data[i].id
-                })
+            if (InputDiv.innerHTML === "") {
+                for (let i = 0; i < data.data.data.length; i++) {
+                    let pInput = document.createElement("p")
+                    pInput.classList.add("pIput")
+                    let spanInputname = document.createElement("span");
+                    spanInputname.innerText = data.data.data[i].name;
+                    spanInputname.classList.add("spanName")
+                    let spanInputauthor = document.createElement("span");
+                    spanInputauthor.innerText = data.data.data[i].author;
+                    spanInputauthor.classList.add("spanAuthor")
+                    InputDiv.appendChild(pInput);
+                    pInput.appendChild(spanInputname);
+                    pInput.appendChild(spanInputauthor);
+                    $(".pIput").eq(i).on("click", function () {
+                        window.location.href = "./books.html?id=" + data.data.data[i].id
+                    })
 
-            }}
+                }
+            }
         }
-        if($(".form-control").val()===""){
-            InputDiv.innerHTML="",
-            fn();
-        }else{
-            InputDiv.innerHTML="",
-            fn();
+        if ($(".form-control").val() === "") {
+            InputDiv.innerHTML = "",
+                fn();
+        } else {
+            InputDiv.innerHTML = "",
+                fn();
         }
     })
 })
@@ -50,7 +51,9 @@ let fenshu2 = document.querySelector("#fenshu2");
 async function fun() {
     try {
         let { data: gen } = await axios.get("http://localhost:3005/books?");
-        /* console.log(gen.data); */
+        let curr = 1;
+        let limit = 5;
+        // console.log(gen.data);
         // console.log(excelimgurl);
         layui.use('table', function () {
             var table = layui.table;
@@ -127,9 +130,12 @@ async function fun() {
                 }
             });
             //展示已知数据
-            function render() {
+            function render(data) {
+
+                data = gen.data
+                // console.log(data);
                 // 分页器
-                layui.use('laypage', function () {
+                layui.use('laypage', function (data) {
                     var laypage = layui.laypage;
                     let currendex
                     // 设置总条数🌸🌸🌸
@@ -139,71 +145,29 @@ async function fun() {
                     // console.log(currendex);
                     //执行一个laypage实例
                     laypage.render({
-                        elem: 'demo7'
-                        , count: currendex
+                        elem: 'demo7',
+                        count: currendex
                         , layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
                         limit: 5,
                         limits: [5, 10, 20, 30, 50],
                         pages: 1
                         , jump: function (obj) {
+                            curr = obj.curr;
+                            limit = obj.limit
+                            console.log(curr);
                             let { data: fenye } = axios.get(`http://localhost:3005/books?_sort=rate&_order=desc&_page=${obj.curr}&_limit=${obj.limit}`).then(data => {
                                 console.log();
-                                table.render({
-                                    elem: '#demo',
-                                    toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
-                                    , defaultToolbar: ['print',]
-                                    , title: '书籍管理', cols: [[ //标题栏
-                                        { type: 'checkbox' }
-                                        , { field: 'name', title: '书名', width: 140, unresize: true, sort: true },
-                                        {
-                                            field: 'coverImg', title: '封面图', width: 220, templet: function (url) {
-                                                return `<img src=${url.coverImg} >`
-                                            }
-                                        }
-                                        , { field: 'author', title: '作者', width: 180, edit: 'text' }
-                                        , { field: 'desc', title: '简介', width: 320, edit: 'text' }
-                                        , {
-                                            field: 'rate', title: '评分', width: 400, sort: true, templet: function (d) {
-                                                let i = d.LAY_INDEX
-                                                layui.use('rate', function () {
-                                                    // console.log("111111111111111", d.rate);
-                                                    var rate = layui.rate;
-                                                    //渲染
-                                                    let obj = {}
-                                                    var ins1 = rate.render({
-                                                        elem: '.bookXing' + i  //绑定元素
-                                                        , length: 10
-                                                        , half: true
-                                                        , value: d.rate
-                                                        , readonly: true,
-                                                    });
-                                                });
-                                                i++
-                                                return `<div class = "bookXing${i}"></div>`
-                                            }
-                                        }
-                                        , { title: '操作', toolbar: '#barDemo', width: 200 },
-                                    ]]
-                                    , data: data.data.data
-                                });
+                                // console.log(data.data.data);
+                                datashow(data.data);
                             })
                             // console.log(fenye);
-
                         }
                     });
                 });
+                
                 //头工具栏事件
                 table.on('toolbar(demo)', function (obj) {
                     var checkStatus = table.checkStatus(obj.config.id);
-                    switch (obj.event) {
-                        case 'getCheckLength':
-                            var data = checkStatus.data;
-                            layer.msg('选中了：' + data.length + ' 个');
-                            break;
-                        case 'isAll':
-                            layer.msg(checkStatus.isAll ? '全选' : '未全选');
-                            break;
-                    };
                     // 给页面添加新增按钮😝😝😝
                     if (obj.event === "add") {
                         //星星
@@ -256,7 +220,7 @@ async function fun() {
                     // 导出Excel功能🌮🌮🌮
                     if (obj.event === "excel") {
                         console.log(gen.data);
-                        let aoa = [["书名","封面图","作者","简介"]]
+                        let aoa = [["书名", "封面图", "作者", "简介"]]
                         gen.data.forEach(item => {
                             let arr = [];
                             arr[0] = item.name;
@@ -271,6 +235,113 @@ async function fun() {
                     // console.log(gen.data.data);
                 });
             }
+            // 展示数据
+            function datashow(data) {
+                table.render({
+                    elem: '#demo',
+                    toolbar: '#toolbarDemo', //开启头部工具栏，并为其绑定左侧模板
+                    autoSort: false
+                    , defaultToolbar: ['print',]
+                    , title: '书籍管理', cols: [[ //标题栏
+                        { type: 'checkbox' }
+                        , { field: 'name', title: '书名', width: 140, unresize: true, sort: true },
+                        {
+                            field: 'coverImg', title: '封面图', width: 220, templet: function (url) {
+                                return `<img src=${url.coverImg} >`
+                            }
+                        }
+                        , { field: 'author', title: '作者', width: 180, edit: 'text' }
+                        , { field: 'desc', title: '简介', width: 320, edit: 'text' }
+                        , {
+                            field: 'rate', title: '评分', width: 400, sort: true, templet: function (d) {
+                                let i = d.LAY_INDEX
+                                layui.use('rate', function () {
+                                    // console.log("111111111111111", d.rate);
+                                    var rate = layui.rate;
+                                    //渲染
+                                    let obj = {}
+                                    var ins1 = rate.render({
+                                        elem: '.bookXing' + i  //绑定元素
+                                        , length: 10
+                                        , half: true
+                                        , value: d.rate
+                                        , readonly: true,
+                                    });
+                                });
+                                i++
+                                return `<div class = "bookXing${i}"></div>`
+                            }
+                        }
+                        , { title: '操作', toolbar: '#barDemo', width: 200 },
+                    ]]
+                    , data: data.data
+                });
+            }
+            // 创建容器存储正排序asc函数排序id名
+            function ascname() {
+                let { data: gs } = axios({
+                    method: "get",
+                    url: "http://localhost:3005/books?_sort=id&_order=asc&_page="+curr+"&_limit="+limit,
+                }).then(data => {
+                    datashow(data.data);
+                })
+            }
+            // 创建容器存储逆排序desc函数排序id名
+            function descname() {
+                let { data: gs } = axios({
+                    method: "get",
+                    url: "http://localhost:3005/books?_sort=id&_order=desc&_page="+curr+"&_limit="+limit,
+                }).then(data => {
+                    datashow(data.data);
+                })
+
+            }
+            // 创建容器存储正排序asc函数排序评分
+            function ascrate() {
+                let { data: gs } = axios({
+                    method: "get",
+                    url: "http://localhost:3005/books?_sort=rate&_order=asc&_page="+curr+"&_limit="+limit,
+                }).then(data => {
+                    datashow(data.data);
+                })
+            }
+            // 创建容器存储逆排序desc函数排序rate评分
+            function descrate() {
+                let { data: gs } = axios({
+                    method: "get",
+                    url: "http://localhost:3005/books?_sort=rate&_order=desc&_page="+curr+"&_limit="+limit,
+                }).then(data => {
+                    datashow(data.data);
+                })
+            }
+            //触发排序事件
+            table.on('sort(demo)', function (obj) { //注：sort 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+                console.log(obj);
+                if (obj.field === "name") {
+                    if (obj.type === "asc") {
+                        ascname()
+
+                    } else if (obj.type === "desc") {
+                        descname()
+
+                    }
+                } else if (obj.field === "rate") {
+                    if (obj.type === "asc") {
+                        ascrate()
+
+                    } else if (obj.type === "desc") {
+                        descrate()
+                    }
+                }
+                /* 
+                ----------------------------------------------------------------------------------
+                
+                */
+                console.log(obj.field); //当前排序的字段名
+                console.log(obj.type); //当前排序类型：desc（降序）、asc（升序）、null（空对象，默认排序）
+                console.log(this); //当前排序的 th 对象
+
+            });
             render();
         });
     } catch (e) {
@@ -340,7 +411,7 @@ function sheet2blob(sheet, sheetName) {
 // 设置返回顶部按钮的点击事件
 $(document).ready(function () {
     $(window).scroll(function () {
-        if ($(document).scrollTop() ==0 ) {
+        if ($(document).scrollTop() == 0) {
             $(".up").hide();
         }
         else if ($(document).scrollTop() > 300) {
