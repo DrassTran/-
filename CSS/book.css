@@ -72,11 +72,16 @@ header #iconfont-paihang {
     font-size: 24px;
 }
 .pIput{
+    height: 40px;
     position: relative;
     top     : 8px;
-    font-size: 10px;
+    font-size: 16px;
     border-bottom:1px solid #EEEEEE
 }
+.pIput:hover{
+    background-color: #DBDADA;
+}
+
 /* 开发书籍介绍 📖 */
 .content-main {
     width: 100%;
