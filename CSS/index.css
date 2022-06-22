@@ -90,12 +90,17 @@ header #iconfont-paihang {
 .spanAuthor {
     position: relative;
     left    : 10px;
+
 }
 
 .pIput {
     position: relative;
-    top     : 10px;
+    top     : 8px;
+    font-size: 10px;
+    border-bottom:1px solid #EEEEEE
+    
 }
+
 
 /* 轮播图效果 💟*/
 .swiper-container {

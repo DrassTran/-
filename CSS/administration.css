@@ -71,7 +71,9 @@ header #iconfont-paihang {
 } */
 .pIput{
     position: relative;
-    top: 10px;
+    top     : 8px;
+    font-size: 10px;
+    border-bottom:1px solid #EEEEEE
 }
 .spanAuthor {
     position: relative;

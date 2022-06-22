@@ -7,7 +7,6 @@ $(".headerbtn").on("click", function () {
     group.appendChild(InputDiv)
     $(".inputdiv").css("display", "block")
     axios.get("http://localhost:3005/books?&name_like=" + $(".form-control").val()).then(data => {
-        // console.log(data.data.data[1].name);
         if (InputDiv.innerHTML === "") {
             for (let i = 0; i < data.data.data.length; i++) {
                 let pInput = document.createElement("p")
