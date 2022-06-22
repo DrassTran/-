@@ -132,6 +132,8 @@ td .layui-table-cell {
     position : relative;
     max-width: 200px;
 }
+/* 给表格里的排序做遮罩层 */
+
 
 /* 给分页器增加样式 */
 .fenye {
@@ -192,11 +194,6 @@ td .layui-table-cell {
     left    : 30px;
 }
 
-/* #Allbtn{
-    position: relative;
-    left: 370px !important;
-    top: 200px !important;
-} */
 /* 设置底部效果🦶 */
 footer {
     width           : 100%;

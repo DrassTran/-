@@ -1,3 +1,7 @@
+/* 
+                ----------------------------------------------------------------------------------
+                
+ */
 let InputDiv = document.createElement("div")
 InputDiv.classList.add("inputdiv")
 // 给input搜索框增添事件😹😹😹
@@ -42,7 +46,10 @@ $(".headerbtn").on("blur", function () {
         $(".inputdiv").css("display", "none")
     }, 2000)
 })
-
+/* 
+                ----------------------------------------------------------------------------------
+                
+ */
 let titleinput2 = document.querySelector("#titleinput2")
 let authorinput2 = document.querySelector("#authorinput2")
 let descinput2 = document.querySelector("#descinput2")
@@ -53,6 +60,8 @@ async function fun() {
         let { data: gen } = await axios.get("http://localhost:3005/books?");
         let curr = 1;
         let limit = 5;
+        let sort = '';
+        let order = 'asc';
         // console.log(gen.data);
         // console.log(excelimgurl);
         layui.use('table', function () {
@@ -67,6 +76,11 @@ async function fun() {
                 descinput2.value = data.desc;
                 fenshu2.innerText = data.rate
                 imgUrl1.value = data.coverImg;
+                /* 
+                                ----------------------------------------------------------------------------------
+                                
+                 */
+                // 删除功能
                 if (obj.event === 'del') {
                     layer.confirm('真的删除行么', function (index) {
                         obj.del();
@@ -76,7 +90,13 @@ async function fun() {
                             console.log(data);
                         })
                     });
-                } else if (obj.event === 'edit') {
+                }
+                /* 
+                                ----------------------------------------------------------------------------------
+                                
+                 */
+                // 编辑功能 
+                else if (obj.event === 'edit') {
                     //星星
                     layui.use(['rate'], function () {
                         var rate = layui.rate;
@@ -124,14 +144,20 @@ async function fun() {
                     });
                     layer.title("编辑")
                 }
+                /* 
+                                ----------------------------------------------------------------------------------
+                                
+                 */
                 //给查看设置页面跳转🐟🐟🐟
                 else if (obj.event === 'detail') {
                     window.location.assign('./books.html?id=' + data.id)
                 }
             });
-            //展示已知数据
+            /* 
+                            ----------------------------------------------------------------------------------
+                            
+             */
             function render(data) {
-
                 data = gen.data
                 // console.log(data);
                 // 分页器
@@ -164,7 +190,10 @@ async function fun() {
                         }
                     });
                 });
-                
+                /* 
+                                ----------------------------------------------------------------------------------
+                                
+                 */
                 //头工具栏事件
                 table.on('toolbar(demo)', function (obj) {
                     var checkStatus = table.checkStatus(obj.config.id);
@@ -235,6 +264,10 @@ async function fun() {
                     // console.log(gen.data.data);
                 });
             }
+            /* 
+                            ----------------------------------------------------------------------------------
+                            
+             */
             // 展示数据
             function datashow(data) {
                 table.render({
@@ -277,70 +310,31 @@ async function fun() {
                     , data: data.data
                 });
             }
-            // 创建容器存储正排序asc函数排序id名
-            function ascname() {
-                let { data: gs } = axios({
-                    method: "get",
-                    url: "http://localhost:3005/books?_sort=id&_order=asc&_page="+curr+"&_limit="+limit,
-                }).then(data => {
-                    datashow(data.data);
-                })
-            }
-            // 创建容器存储逆排序desc函数排序id名
-            function descname() {
-                let { data: gs } = axios({
-                    method: "get",
-                    url: "http://localhost:3005/books?_sort=id&_order=desc&_page="+curr+"&_limit="+limit,
-                }).then(data => {
-                    datashow(data.data);
-                })
-
-            }
-            // 创建容器存储正排序asc函数排序评分
-            function ascrate() {
-                let { data: gs } = axios({
-                    method: "get",
-                    url: "http://localhost:3005/books?_sort=rate&_order=asc&_page="+curr+"&_limit="+limit,
-                }).then(data => {
-                    datashow(data.data);
-                })
-            }
-            // 创建容器存储逆排序desc函数排序rate评分
-            function descrate() {
-                let { data: gs } = axios({
-                    method: "get",
-                    url: "http://localhost:3005/books?_sort=rate&_order=desc&_page="+curr+"&_limit="+limit,
-                }).then(data => {
-                    datashow(data.data);
-                })
+            /* 
+                            ----------------------------------------------------------------------------------
+                            
+             */
+            // 封装排序函数
+            async function getPageData(page, limit, sort, order) {
+                return await axios.get(`http://localhost:3005/books?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`)
             }
             //触发排序事件
-            table.on('sort(demo)', function (obj) { //注：sort 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
-                console.log(obj);
-                if (obj.field === "name") {
-                    if (obj.type === "asc") {
-                        ascname()
-
-                    } else if (obj.type === "desc") {
-                        descname()
-
-                    }
-                } else if (obj.field === "rate") {
-                    if (obj.type === "asc") {
-                        ascrate()
-
-                    } else if (obj.type === "desc") {
-                        descrate()
-                    }
+            table.on('sort(demo)', async function (obj) { //注：sort 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+                sort = obj.field;
+                if (obj.field == 'name') {
+                    sort = 'id'
                 }
-                /* 
-                ----------------------------------------------------------------------------------
-                
-                */
-                console.log(obj.field); //当前排序的字段名
-                console.log(obj.type); //当前排序类型：desc（降序）、asc（升序）、null（空对象，默认排序）
-                console.log(this); //当前排序的 th 对象
-
+                order = obj.type
+                const { data: { data: pageData } } = await getPageData(curr, limit, sort, order);
+                console.log(pageData);
+                table.reload('demo', {
+                    data: pageData,
+                    initSort: obj //记录初始排序，如果不设的话，将无法标记表头的排序状态。
+                    , where: { //请求参数（注意：这里面的参数可任意定义，并非下面固定的格式）
+                        field: obj.field //排序字段
+                        , order: obj.type //排序方式
+                    }
+                });
             });
             render();
         });
@@ -364,8 +358,6 @@ fun()
 
 /**
  * 通用的打开下载对话框方法，没有测试过具体兼容性
- * @param url 下载地址，也可以是一个blob对象，必选
- * @param saveName 保存文件名，可选
  */
 function openDownloadDialog(url, saveName) {
     if (typeof url == 'object' && url instanceof Blob) {
@@ -382,7 +374,10 @@ function openDownloadDialog(url, saveName) {
     }
     aLink.dispatchEvent(event);
 }
-
+/* 
+                ----------------------------------------------------------------------------------
+                
+ */
 // 将一个sheet转成最终的excel文件的blob对象，然后利用URL.createObjectURL下载
 function sheet2blob(sheet, sheetName) {
     sheetName = sheetName || 'sheet1';
@@ -408,6 +403,10 @@ function sheet2blob(sheet, sheetName) {
     }
     return blob;
 }
+/* 
+                ----------------------------------------------------------------------------------
+                
+ */
 // 设置返回顶部按钮的点击事件
 $(document).ready(function () {
     $(window).scroll(function () {
