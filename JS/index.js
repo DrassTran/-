@@ -94,7 +94,7 @@ let paiImg = document.querySelectorAll(".paiimg")
 //使用AJAX渲染主页排行榜🦄🦄🦄
 async function paih() {
     try {
-        let { data: paihang } = await axios.get("http://localhost:3005/books?_sort=rate&_order&_start=0&_limit=5");
+        let { data: paihang } = await axios.get("http://localhost:3005/books?_sort=rate&_order=desc&_start=0&_limit=5");
         for (let i = 0; i < paiImg.length; i++) {
             $(".paiimg").eq(i).attr({ 'src': paihang.data[i].coverImg })
             // console.log(paihang.data[i]);
