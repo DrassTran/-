@@ -7,8 +7,8 @@ $(".headerbtn").on("click", function () {
     group.appendChild(InputDiv)
     $(".inputdiv").css("display", "block")
     axios.get("http://localhost:3005/books?&name_like=" + $(".form-control").val()).then(data => {
-        // console.log(data.data.data[1].name);
-        if (InputDiv.innerHTML === "") {
+        function fn() {
+            if(InputDiv.innerHTML===""){
             for (let i = 0; i < data.data.data.length; i++) {
                 let pInput = document.createElement("p")
                 pInput.classList.add("pIput")
@@ -24,9 +24,22 @@ $(".headerbtn").on("click", function () {
                 $(".pIput").eq(i).on("click", function () {
                     window.location.href = "./books.html?id=" + data.data.data[i].id
                 })
-            }
+
+            }}
+        }
+        if($(".form-control").val()===""){
+            InputDiv.innerHTML="",
+            fn();
+        }else{
+            InputDiv.innerHTML="",
+            fn();
         }
     })
+})
+$(".headerbtn").on("blur", function () {
+    setTimeout(val => {
+        $(".inputdiv").css("display", "none")
+    }, 2000)
 })
 
 
