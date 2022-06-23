@@ -262,6 +262,20 @@ async function fun() {
                         var sheet = XLSX.utils.aoa_to_sheet(aoa);
                         openDownloadDialog(sheet2blob(sheet), '书籍.xlsx');
                     }
+                    if(obj.event==="LAYTABLE_TIPS"){
+                        printJS(
+                            {
+                                // pdf或图像的url，html元素的id或json数据的对象
+                                printable: 'bookbox',
+                                // 设置打印类型 pdf，html，image，json和raw-html
+                                type: 'html',
+                                css:['./layui-v2.6.13/layuis/layui.css'],
+                                showModal: true,
+                                // scanStyles:false,
+                                honorMarginPadding:false,
+                            }
+                        )
+                    }
                     // console.log(gen.data.data);
                 });
             }
@@ -275,7 +289,7 @@ async function fun() {
                     elem: '#demo',
                     toolbar: '#toolbarDemo', //开启头部工具栏，并为其绑定左侧模板
                     autoSort: false
-                    , defaultToolbar: ['print',]
+                    , defaultToolbar: []
                     , title: '书籍管理', cols: [[ //标题栏
                         { type: 'checkbox' }
                         , { field: 'name', title: '书名', width: 140, unresize: true, sort: true },

@@ -54,9 +54,12 @@
         <img src="./向上的箭头/up-arrow.png" alt="" class="upimg">
     </div>
     <!-- 给整个书籍管理添加一个大盒子 -->
+   
     <div class="admin-content">
         <!-- 书籍管理的表格👻👻👻 -->
+    <div id="bookbox">
         <table class="layui-hide" id="demo" lay-filter="demo"></table>
+    </div>
         <!-- 分页器 -->
         <div id="demo7" class="fenye"></div>
     </div>
@@ -146,6 +149,7 @@
         <!-- 新增 👻👻👻-->
         <button class="layui-btn layui-btn-sm" lay-event="add">新增</button>
         <button class="layui-btn layui-btn-sm" lay-event="excel">导出为EXCEL文件</button>
+        <button class="layui-btn layui-btn-sm" lay-event="LAYTABLE_TIPS">打印</button>
     </div>
 </script>
 <script type="text/html" id="barDemo">
@@ -156,5 +160,6 @@
 <script src="./layui-v2.6.11/layui/layui.js"></script>
 <script src="./JS/axios.min.js"></script>
 <script src="./JS/xlsx.core.min.js"></script>
+<script src="./JS/print.min.js"></script>
 <script src="./JS/administration.js"></script>
 </html>
