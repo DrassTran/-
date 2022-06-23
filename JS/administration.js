@@ -272,8 +272,8 @@ async function fun() {
                                 css:['./layui-v2.6.13/layuis/layui.css','./CSS/administration.css'],
                                 renderPageTable:true,
                                 showModal: true,
-                                // scanStyles:false,
-                                // honorMarginPadding:false,
+                                // scanStyles:true,
+                                // honorMarginPadding:true,
                             }
                         )
                     }
