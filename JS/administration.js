@@ -177,7 +177,7 @@ async function fun() {
                         limit: 5,
                         limits: [5, 10, 20, 30, 50],
                         pages: 1
-                        , jump: function (obj) {
+                        , jump: function (obj,first) {
                             curr = obj.curr;
                             limit = obj.limit
                             console.log(curr);
