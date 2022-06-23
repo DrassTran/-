@@ -361,7 +361,8 @@ async function fun() {
                     ,area: ["400px","400px"]
                     ,shade: 0.8
                     ,id: 'LAY_layuipro',//设定一个id，防止重复弹出
-                    content:`<div style='height:300px;width:300px'><img src=${$(this).attr('src')} style='height:100%;width:100%;margin-left:50px;margin-top:20px'></div>`,
+                    content:`<div style='height:300px;width:300px;'><img src=${$(this).attr('src')} style='height:100%;width:100%;margin-left:50px;margin-top:20px;
+                    '></div>`,
                 })
                 layer.title("详细图片")
             })
