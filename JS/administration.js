@@ -269,10 +269,11 @@ async function fun() {
                                 printable: 'bookbox',
                                 // 设置打印类型 pdf，html，image，json和raw-html
                                 type: 'html',
-                                css:['./layui-v2.6.13/layuis/layui.css'],
+                                css:['./layui-v2.6.13/layuis/layui.css','./CSS/administration.css'],
+                                renderPageTable:true,
                                 showModal: true,
                                 // scanStyles:false,
-                                honorMarginPadding:false,
+                                // honorMarginPadding:false,
                             }
                         )
                     }

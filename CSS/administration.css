@@ -135,10 +135,6 @@ td .layui-table-cell {
 /* 给表格里的排序做遮罩层 */
 
 
-/* 给分页器增加样式 */
-.fenye {
-    margin-left: 1000px;
-}
 
 /* 点击新增按钮出来的框 */
 #model1 {
