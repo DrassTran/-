@@ -145,14 +145,17 @@ async function fun() {
                     });
                     layer.title("编辑")
                 }
+
                 /* 
                                 ----------------------------------------------------------------------------------
                                 
                  */
                 //给查看设置页面跳转🐟🐟🐟
+
                 else if (obj.event === 'detail') {
                     window.location.assign('./books.html?id=' + data.id)
                 }
+
             });
             /* 
                             ----------------------------------------------------------------------------------
@@ -178,7 +181,7 @@ async function fun() {
                         limit: 5,
                         limits: [5, 10, 20, 30, 50],
                         pages: 1
-                        , jump: function (obj,first) {
+                        , jump: function (obj, first) {
                             curr = obj.curr;
                             limit = obj.limit
                             console.log(curr);
@@ -187,7 +190,6 @@ async function fun() {
                                 // console.log(data.data.data);
                                 datashow(data.data);
                             })
-                            // console.log(fenye);
                         }
                     });
                 });
@@ -262,15 +264,15 @@ async function fun() {
                         var sheet = XLSX.utils.aoa_to_sheet(aoa);
                         openDownloadDialog(sheet2blob(sheet), '书籍.xlsx');
                     }
-                    if(obj.event==="LAYTABLE_TIPS"){
+                    if (obj.event === "LAYTABLE_TIPS") {
                         printJS(
                             {
                                 // pdf或图像的url，html元素的id或json数据的对象
                                 printable: 'bookbox',
                                 // 设置打印类型 pdf，html，image，json和raw-html
                                 type: 'html',
-                                css:['./layui-v2.6.13/layuis/layui.css','./CSS/administration.css'],
-                                renderPageTable:true,
+                                css: ['./layui-v2.6.13/layuis/layui.css', './CSS/administration.css'],
+                                renderPageTable: true,
                                 showModal: true,
                                 // scanStyles:true,
                                 // honorMarginPadding:true,
@@ -296,7 +298,7 @@ async function fun() {
                         , { field: 'name', title: '书名', width: 140, unresize: true, sort: true },
                         {
                             field: 'coverImg', title: '封面图', width: 220, templet: function (url) {
-                                return `<img src=${url.coverImg} >`
+                                return `<img src=${url.coverImg}>`
                             }
                         }
                         , { field: 'author', title: '作者', width: 180, edit: 'text' }
@@ -353,6 +355,16 @@ async function fun() {
                 });
             });
             render();
+            $("#bookbox").on("click", "img", function () {
+                layer.open({
+                    type: 1
+                    ,area: ["400px","400px"]
+                    ,shade: 0.8
+                    ,id: 'LAY_layuipro',//设定一个id，防止重复弹出
+                    content:`<div style='height:300px;width:300px'><img src=${$(this).attr('src')} style='height:100%;width:100%;margin-left:50px;margin-top:20px'></div>`,
+                })
+                layer.title("详细图片")
+            })
         });
     } catch (e) {
         console.log(e);
@@ -427,7 +439,6 @@ $(document).ready(function () {
         }
     });
 });
-
 
 /*
  * 
