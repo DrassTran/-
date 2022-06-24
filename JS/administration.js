@@ -355,6 +355,7 @@ async function fun() {
                 });
             });
             render();
+            // 给书籍管理页中表格里的每张图片添加点击事件
             $("#bookbox").on("click", "img", function () {
                 layer.open({
                     type: 1
